@@ -29,6 +29,11 @@ and server. All modules have unit tests. Our source code hierarchy looks like th
     │   │   ├── main
     │   │   ├── test
 
+#### Getting It Into Eclipse
+Clone the repository to your local machine. Then, in Eclipse, select 
+"File -> Import... -> Maven -> Existing Maven Project". Then locate the directory you 
+cloned and finish the import into Eclipse.
+
 #### Building
 To run all the unit tests, select "Run -> Run As -> Maven Test". This will 
 execute the unit tests for all three modules.
