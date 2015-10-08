@@ -44,6 +44,9 @@ applications, run java with the .jar as an argument. For example:
 
     java -jar server/target/server-0.0.1.jar
 
+#### Branching and Code Reviews
+[Check out our wicked wiki](https://github.com/or-drop-tables-team/sup/wiki/Branching-and-Pull-Requests).
+
 ### Continuous Integration
 We use [Travis](https://travis-ci.org/or-drop-tables-team/sup) to build and run 
 all unit tests on every commit.
