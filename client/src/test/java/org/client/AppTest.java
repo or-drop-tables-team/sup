@@ -38,4 +38,12 @@ public class AppTest
     	Utils util = new Utils();
         assertEquals( 42, util.get42());
     }
+    
+    // test the login message looks right
+    public void testLoginMessageCreate()
+    {
+    	App app = new App();
+    	String loginMsg = app.createLoginMessageForUser("foobaz");
+    	assertEquals( loginMsg, "login foobaz" );
+    }
 }
