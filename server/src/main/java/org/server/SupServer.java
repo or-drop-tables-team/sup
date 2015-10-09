@@ -1,15 +1,14 @@
+package org.server;
+
 import java.io.*;
 import java.net.*;
 import java.util.*;
 
 public class SupServer {
-  
-  // userList is a hashmap which is used to store the user name and its printwriter
-  HashMap<String, PrintWriter> userList = new HashMap<String, PrintWriter>();
-  int clientIndex = 1;
-  
+    
   public class SupClientHandler implements Runnable {
     BufferedReader reader;
+    String clientname;
     Socket sock;
     
     public SupClientHandler(Socket clientSocket) {
@@ -29,7 +28,21 @@ public class SupServer {
         message = reader.readLine();
         while(message != null) {
           System.out.println("read" + message + " from " + Thread.currentThread().getName());
-          tellSomeone(message, Thread.currentThread().getName());
+          
+          // at this point, for the first message only, we'll need to parse the message
+          // for a username and add it to contact list, like:
+          String clientname = "temporaryName"; // TODO obviously need to parse this from the first msg
+          if (Contacts.getInstance().hasContact(clientname)) {
+        	  // TODO return error, username taken,end connection
+          }
+          else {
+        	  this.clientname = clientname;
+        	  Contacts.getInstance().addContact( clientname, new PrintWriter(sock.getOutputStream()) );
+          }
+          
+          // for all chat messages, send to the destination
+          String toname = "TODO"; // need to parse that out of the chat message
+          tellSomeone(message, this.clientname, toname );
         }
       }
       catch(Exception ex) {
@@ -45,18 +58,9 @@ public class SupServer {
       // everytime receive a socket from a server, create a new thread. put the printwriter into userlist and set the name for client
       while(true) {
         Socket supClient = supServer.accept();
-        PrintWriter writer = new PrintWriter(supClient.getOutputStream());
-        
-        String clientName = "Client" + this.clientIndex;
-        if(userList.containsKey(clientName)) {
-          throw new Exception("User name is already used, please use another one.");
-        }
-        userList.put(clientName, writer);
-
 
         Thread t = new Thread(new SupClientHandler(supClient));
         t.start();
-        t.setName(clientName);
         System.out.println("Received a new connection");
       }
     }
@@ -69,10 +73,11 @@ public class SupServer {
   }
 
   // send the message to the specific user. find the socket by searching userlist
-  public void tellSomeone(String message, String name) {
-    while (userList.containsKey(name)) {
+  // this needs to be thread safe.
+  public void tellSomeone(String message, String fromname, String toname) {
+    if (Contacts.getInstance().hasContact(toname)) {
       try {
-            PrintWriter writer = userList.get(name);
+            PrintWriter writer = Contacts.getInstance().getContact(toname);
             writer.println(message);
             writer.flush();
           } catch (Exception ex) { ex.printStackTrace(); }
