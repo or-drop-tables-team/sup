@@ -5,8 +5,6 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * 
- * @author sjarvis
- * 
  * Universally accessible contacts list (safe to edit from any thread of execution)
  *
  */
