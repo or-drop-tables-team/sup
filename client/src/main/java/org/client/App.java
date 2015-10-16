@@ -85,8 +85,3 @@ public class App
 		System.exit(0);
 	}
 }
-    
-    public String createLoginMessageForUser(String username) {
-        return "login " + username;
-    }
-}
