@@ -26,6 +26,7 @@ public class App
         App client = new App();
         client.start();
         
+        //I think my logoff() should in a new thread().run();
         // temporary, we will run this in a loop
         Console console = System.console();
         console.readLine("Any key to exit.");
@@ -66,4 +67,21 @@ public class App
     public String createLoginMessageForUser(String username) {
         return "login " + username;
     }
+    
+    /**
+     * log off from the server
+	 *
+	 * @param 
+	 * 	username - the user log off from the server
+     * */
+	private void logoff(String username) {
+		String logoffSignal = "logoff " + username;
+		sendMessage(logoffSignal);
+		try {
+			finalize();
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+		System.exit(0);
+	}
 }
