@@ -83,10 +83,10 @@ public class SupServer {
             } catch (IOException e) {
                 // TODO Auto-generated catch block
             	//I think server can also remove contact here and send the list to everyone
-            	removeContact(clientname);
+            	//removeContact(clientname);
             	//sendList();
-            	return ;
-                //e.printStackTrace(); 
+            	//return ;
+                e.printStackTrace(); 
             }
             // if they were actually authenticated and left, log them off..
             if(!clientname.isEmpty()) {
