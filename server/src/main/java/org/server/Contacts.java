@@ -1,6 +1,9 @@
 package org.server;
 
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -54,5 +57,23 @@ public class Contacts {
     // remove a contact
     public void removeContact(String name) {
         userList.remove(name);
+    }
+    
+  //get the print writer list
+    public List<PrintWriter> getWriterList() throws Exception{
+    	List<PrintWriter> users = new ArrayList<PrintWriter>();
+    	for (Entry<String, PrintWriter> entry : userList.entrySet()) {
+			users.add(entry.getValue());
+		}
+    	return users;
+    }
+    
+    //get the user name list
+    public List<String> getUserList() throws Exception{
+    	List<String> users = new ArrayList<String>();
+    	for (Entry<String, PrintWriter> entry : userList.entrySet()) {
+			users.add(entry.getKey());
+		}
+    	return users;
     }
 }
