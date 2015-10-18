@@ -1,7 +1,11 @@
 package org.server;
 
-import java.io.*;
-import java.net.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
 import org.common.Utils;
 
 public class SupServer {
@@ -128,8 +132,8 @@ public class SupServer {
                 String msg = createFormattedChatMessage(message, fromname, toname);
                 Utils.sendMessage(writer, msg);
                 tellSomeoneStatus(Utils.SUCCESS_STS, fromname);
-            } catch (Exception ex) { 
-                ex.printStackTrace(); 
+            } catch (Exception ex) {
+                ex.printStackTrace();
                 tellSomeoneStatus(Utils.FAIL_INTERNAL, fromname);
             }
         } else {
@@ -138,7 +142,7 @@ public class SupServer {
     }
 
     /**
-     * 
+     *
      * @param message
      * @param fromname - sender username
      * @param toname - recipient username
@@ -147,13 +151,15 @@ public class SupServer {
     private String createFormattedChatMessage(String message, String fromname, String toname ) {
         return "recv " + fromname + " " + message;
     }
-  /**
+
+
+    /**
      * return the status to the specific one
 	 *
-	 * @param 
+	 * @param
 	 * 	status - status info
 	 *  toname - the specific one to transfer status
-	 *  
+	 *
      * */
     public void tellSomeoneStatus(String status, String toname)
     {
@@ -164,11 +170,11 @@ public class SupServer {
             } catch (Exception ex) { ex.printStackTrace(); }
         }
     }
-    
+
     /**
      * remove contact from active list and send the online list to everyone
 	 *
-	 * @param 
+	 * @param
 	 * 	name - the contact removed from the list
      * */
 	public void removeContact(String name)
@@ -176,5 +182,5 @@ public class SupServer {
 		Contacts.getInstance().removeContact(name);
 		System.out.println(name + " has been removed from online contacts");
 	}
-	
+
 }
