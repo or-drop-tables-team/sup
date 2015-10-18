@@ -21,6 +21,7 @@ public class App
     private Socket sock;
     private PrintWriter out;
     private BufferedReader in;
+    private MessageReceiver receiver;
 
     /**
      * Main entry point of the client application.
@@ -31,10 +32,6 @@ public class App
     {
         App client = new App();
         client.start();
-
-        // temporary, we will run this in a loop
-        Console console = System.console();
-        console.readLine("Any key to exit.");
     }
 
     /**
@@ -76,6 +73,21 @@ public class App
                 System.out.println("Failed to login as \"" + username + "\"");	
             }
         }
+        
+        // Now that we're logged in, start our message receiver to
+        // constantly receive and display message from the server for the client.
+        this.receiver = new MessageReceiver( this.in );
+        Thread t = new Thread(this.receiver);
+        t.start();
+        
+        // TODO temporary, replace with Colin's smarter code
+        // pretend there's a user logged on named "user"
+        while(true) {
+            String user = console.readLine("To username: ");
+            String msg = console.readLine("Message: ");
+            sendChatMessage(user, msg);
+        }
+        
     }
 
     /**
@@ -97,6 +109,7 @@ public class App
     private boolean statusOk() {
         // first need to get. 
         // NOTE we probably want to eventually add a timeout to this.
+        // TODO this should be a part of MessageReceiver
         String msg = Utils.receiveMessage(this.in);
         if(msg.equals(Utils.SUCCESS_STS)) {
             return true;
@@ -105,4 +118,42 @@ public class App
             return false;
         }
     }
+    
+    /**
+     * log off from the server
+	 *
+	 * @param 
+	 * 	username - the user log off from the server
+     * */
+	private void logoff(PrintWriter writer, String username) {
+		String logoffSignal = "logoff " + username;
+		Utils.sendMessage(writer, logoffSignal);
+		try {
+			finalize();
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+		// stop our listener when logging off
+		this.receiver.stopRunning();
+		
+		System.exit(0);
+	}
+	
+	/**
+	 * Send a chat message.
+	 */
+	private boolean sendChatMessage(String username, String msg) {
+	    Utils.sendMessage(this.out, createChatMessage(username, msg));                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+	    // TODO this needs to check the status, not just return OK
+	    return true;
+	}
+	
+	/**
+	 * Create a chat message
+	 */
+	private String createChatMessage(String toUser, String message) {
+	    return "send " + toUser + " " + message;
+	}
+	
 }
+  
