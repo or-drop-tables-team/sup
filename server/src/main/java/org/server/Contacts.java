@@ -59,7 +59,7 @@ public class Contacts {
         userList.remove(name);
     }
     
-  //get the print writer list
+    //get the print writer list
     public List<PrintWriter> getWriterList() throws Exception{
     	List<PrintWriter> users = new ArrayList<PrintWriter>();
     	for (Entry<String, PrintWriter> entry : userList.entrySet()) {

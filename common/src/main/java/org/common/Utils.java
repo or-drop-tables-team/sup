@@ -10,8 +10,10 @@ import java.io.PrintWriter;
  */
 public class Utils 
 {
-    public static final String SUCCESS_STS = "200 OK";
-    public static final String FAIL_LOGIN_USERNAME_TAKEN = "301 Username Taken";
+    public static final String SUCCESS_STS = "status 000 OK";
+    public static final String FAIL_INTERNAL = "status 200 Internal Error";
+    public static final String FAIL_LOGIN_USERNAME_TAKEN = "status 101 Username Taken";
+    public static final String FAIL_USER_NOT_ONLINE = "status 104 User Not Online";
 
     /**
      * 
