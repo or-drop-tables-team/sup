@@ -35,6 +35,20 @@ public class Utils
 
         return 0;
     }
+    
+    /**
+     * Send object out provided printwriter, terminated with EOT.
+     */
+    public static int sendMessage(PrintWriter out, Object o) {
+
+        int EOT = 0x04;
+
+        o = o + Character.toString((char) EOT);
+        out.print(o);
+        out.flush();
+
+        return 0;
+    }
 
     /**
      * Receive an EOT terminated message.
