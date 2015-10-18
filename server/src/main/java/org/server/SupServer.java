@@ -3,6 +3,8 @@ package org.server;
 import java.io.*;
 import java.net.*;
 
+import org.common.Utils;
+
 public class SupServer {
 
     private int port;
@@ -29,19 +31,12 @@ public class SupServer {
 
         public void run() {
             // Run until connection is broken or user terminates
-            int character = 0;
+            String message = "";
             try {
-                while((character = reader.read()) != -1) {
+                // if connection is broken, receiveMessage will return empty string.
+                while((message = Utils.receiveMessage(this.reader)) != "") {
 
-                    String message = "";
-
-                    // Go until EOT character, end of transmission
-                    while(character != 0x04) {
-                        message = message + Character.toString((char) character);
-                        character = reader.read();
-                    }
-
-                    // now we have the message read in
+                    // now we have the message read in. this might be more verbose than we want.
                     System.out.println("read \"" + message + "\" from " + Thread.currentThread().getName());
 
                     // at this point, for the first message only, we'll need to parse the message
@@ -50,19 +45,28 @@ public class SupServer {
                     if(clientname.isEmpty()) {
                         String requestedName = message.split(" ")[1];
                         if (Contacts.getInstance().hasContact(requestedName)) {
-                            // TODO return error, username taken,end connection
+                            // return error, username taken
                             System.out.println("Contact name taken: " + requestedName );
+                            Utils.sendMessage(new PrintWriter(sock.getOutputStream()), Utils.FAIL_LOGIN_USERNAME_TAKEN);
                         }
                         else {
+                            // success, add them to the collection of online contacts.
                             clientname = requestedName;
-                            Contacts.getInstance().addContact( clientname, new PrintWriter(sock.getOutputStream()) );
                             System.out.println("New contact name: " + clientname );
+                            Contacts.getInstance().addContact( clientname, new PrintWriter(sock.getOutputStream()) );
+                            try {
+                                Utils.sendMessage(Contacts.getInstance().getContact(clientname), Utils.SUCCESS_STS);
+                            } catch (Exception e) {
+                                System.out.println("Failed to send confirmation message to new client");
+                                e.printStackTrace();
+                            }
                         }
+                    } else {
+                        // they've already successfully logged in.
+                        // if it's not a login message, it's a chat message. parse it and forward.
+                        String toname = "TODO"; // need to parse that out of the chat message
+                        tellSomeone(message, this.clientname, toname );
                     }
-
-                    // for all chat messages (and only chat messages), send to the destination
-                    String toname = "TODO"; // need to parse that out of the chat message
-                    tellSomeone(message, this.clientname, toname );
                 }
 
 
@@ -80,8 +84,9 @@ public class SupServer {
     }
 
     public void start () {
+        ServerSocket supServer = null;
         try{
-            ServerSocket supServer = new ServerSocket(this.port);
+            supServer = new ServerSocket(this.port);
 
             // everytime receive a socket from a server, create a new thread. put the printwriter into userlist and set the name for client
             while(true) {
@@ -98,18 +103,39 @@ public class SupServer {
         catch(Exception ex) {
             System.out.println(ex.getMessage());
         }
+
+        // all done, clean up.
+        try {
+            supServer.close();
+        } catch (IOException e) {
+            System.out.println("Failed to clean up socket, finishing anyway.");
+            e.printStackTrace();
+        }
     }
 
     // send the message to the specific user. find the socket by searching userlist
     // this needs to be thread safe.
     public void tellSomeone(String message, String fromname, String toname) {
-        System.out.println("Forwarding \"" + message + "\" from " + fromname + " to " + toname);
         if (Contacts.getInstance().hasContact(toname)) {
             try {
                 PrintWriter writer = Contacts.getInstance().getContact(toname);
-                writer.println(message);
-                writer.flush();
-            } catch (Exception ex) { ex.printStackTrace(); }
+                String msg = createFormattedChatMessage(message, fromname, toname);
+                Utils.sendMessage(writer, msg);
+            } catch (Exception ex) { 
+                ex.printStackTrace(); 
+            }
         }
+    }
+
+    /**
+     * 
+     * @param message
+     * @param fromname - sender username
+     * @param toname - recipient username
+     * @return string of formatted message, ready for sending
+     */
+    private String createFormattedChatMessage(String message, String fromname, String toname ) {
+        // TODO 
+        return "TODO make this valid " + message;
     }
 }
