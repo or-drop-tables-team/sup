@@ -105,4 +105,22 @@ public class App
             return false;
         }
     }
+    
+    /**
+     * log off from the server
+	 *
+	 * @param 
+	 * 	username - the user log off from the server
+     * */
+	private void logoff(PrintWriter writer, String username) {
+		String logoffSignal = "logoff " + username;
+		Utils.sendMessage(writer, logoffSignal);
+		try {
+			finalize();
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+		System.exit(0);
+	}
 }
+  
