@@ -1,6 +1,6 @@
 # Sup?
 
-![alt text](https://travis-ci.org/or-drop-tables-team/sup.svg "Build Status")
+![alt text](https://travis-ci.org/or-drop-tables-team/sup.svg?branch=master "Build Status")
 
 CS 673. Enabling communication all across the world.
 
@@ -45,6 +45,6 @@ applications, run java with the .jar as an argument. For example:
     java -jar server/target/server-0.0.1.jar
 
 ### Continuous Integration
-We use [Travis](https://travis-ci.org/or-drop-tables-team/sup) to build and run 
+We use [Travis](https://travis-ci.org/or-drop-tables-team/sup.svg?branch=master) to build and run 
 all unit tests on every commit.
-The current build status is ![alt text](https://travis-ci.org/or-drop-tables-team/sup.svg "Build Status")
+The current build status is ![alt text](https://travis-ci.org/or-drop-tables-team/sup.svg?branch=master "Build Status")
