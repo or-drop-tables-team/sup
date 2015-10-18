@@ -138,4 +138,55 @@ public class SupServer {
         // TODO 
         return "TODO make this valid " + message;
     }
+  /**
+     * return the status to the specific one
+	 *
+	 * @param 
+	 * 	status - status info
+	 *  toname - the specific one to transfer status
+     * */
+    public void tellSomeoneStatus(String status, String toname)
+    {
+    	System.out.println("Return the \"" + status +"\" to " + toname);
+    	if (Contacts.getInstance().hasContact(toname)) {
+            try {
+                PrintWriter writer = Contacts.getInstance().getContact(toname);
+                Utils.sendMessage(writer, toname);
+            } catch (Exception ex) { ex.printStackTrace(); }
+        }
+    }
+    
+    /**
+     * remove contact from active list and send the online list to everyone
+	 *
+	 * @param 
+	 * 	name - the contact removed from the list
+     * */
+	public void removeContact(String name)
+	{
+		Contacts.getInstance().removeContact(name);
+		System.out.println(name + "has been removed from the contact");
+	}
+	
+	/**
+     * send user list after remove someone
+	 *
+     * */
+	public void sendList()
+	{
+		try {
+			List<String> users = Contacts.getInstance().getUserList();
+			List<PrintWriter> list = Contacts.getInstance().getWriterList();
+			for(int i=0; i<list.size(); i++)
+			{
+				PrintWriter writer = list.get(i);
+				System.out.println("Send the user list");
+				Utils.sendMessage(writer, users.toArray());
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }
