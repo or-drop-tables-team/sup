@@ -21,8 +21,7 @@ public class App
     private Socket sock;
     private PrintWriter out;
     private BufferedReader in;
-    private final int EOT = 0x04;
-
+    
     /**
      * Main entry point of the client application.
      * 
