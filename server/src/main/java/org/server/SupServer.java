@@ -1,11 +1,8 @@
 package org.server;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.ServerSocket;
-import java.net.Socket;
+import java.io.*;
+import java.net.*;
+
 import org.common.Utils;
 
 public class SupServer {
@@ -48,7 +45,7 @@ public class SupServer {
                     if(clientname.isEmpty()) {
                         String requestedName = message.split(" ")[1];
                         if (Contacts.getInstance().hasContact(requestedName)) {
-                            // return error, user name taken
+                            // return error, username taken
                             System.out.println("Contact name taken: " + requestedName );
                             Utils.sendMessage(new PrintWriter(sock.getOutputStream()), Utils.FAIL_LOGIN_USERNAME_TAKEN);
                         }
@@ -67,10 +64,20 @@ public class SupServer {
                     } else {
                         // they've already successfully logged in.
                         // if it's not a login message, it's a chat message. parse it and forward.
-                        String toAndMsg = message.substring(message.indexOf(' ') + 1);
-                        String toname = toAndMsg.split(" ")[0];
-                        String msg = toAndMsg.substring(message.indexOf(' ') + 1);
-                        tellSomeone(msg, this.clientname, toname );
+                   
+                    	
+                    	//ADDED
+                    	if (message.equals("get contacts")) {
+                        	System.out.println("contacts request recieved from client.");
+                        	String contactReply = Contacts.getInstance().showContactNames();
+                        	System.out.println(contactReply);
+                        	Utils.sendMessage(new PrintWriter(sock.getOutputStream()), contactReply);
+                        	//TODO Give contacts list to user
+                        }
+                    	// END ADDED
+                    	
+                    	String toname = "TODO"; // need to parse that out of the chat message
+                        tellSomeone(message, this.clientname, toname );
                     }
                 }
 
@@ -83,7 +90,7 @@ public class SupServer {
             if(!clientname.isEmpty()) {
                 System.out.println(clientname + " is no longer online.");
                 // remove user from active contacts
-                removeContact(clientname);
+                Contacts.getInstance().removeContact(clientname);
             }
         }
     }
@@ -118,12 +125,7 @@ public class SupServer {
         }
     }
 
-    /**
-     *  send the message to the specific user. find the socket by searching userlist
-     * @param message
-     * @param fromname
-     * @param toname
-     */
+    // send the message to the specific user. find the socket by searching userlist
     // this needs to be thread safe.
     public void tellSomeone(String message, String fromname, String toname) {
         if (Contacts.getInstance().hasContact(toname)) {
@@ -131,56 +133,21 @@ public class SupServer {
                 PrintWriter writer = Contacts.getInstance().getContact(toname);
                 String msg = createFormattedChatMessage(message, fromname, toname);
                 Utils.sendMessage(writer, msg);
-                tellSomeoneStatus(Utils.SUCCESS_STS, fromname);
-            } catch (Exception ex) {
-                ex.printStackTrace();
-                tellSomeoneStatus(Utils.FAIL_INTERNAL, fromname);
+            } catch (Exception ex) { 
+                ex.printStackTrace(); 
             }
-        } else {
-            tellSomeoneStatus(Utils.FAIL_USER_NOT_ONLINE, fromname);
         }
     }
 
     /**
-     *
+     * 
      * @param message
      * @param fromname - sender username
      * @param toname - recipient username
      * @return string of formatted message, ready for sending
      */
     private String createFormattedChatMessage(String message, String fromname, String toname ) {
-        return "recv " + fromname + " " + message;
+        // TODO 
+        return "TODO make this valid " + message;
     }
-
-
-    /**
-     * return the status to the specific one
-	 *
-	 * @param
-	 * 	status - status info
-	 *  toname - the specific one to transfer status
-	 *
-     * */
-    public void tellSomeoneStatus(String status, String toname)
-    {
-    	if (Contacts.getInstance().hasContact(toname)) {
-            try {
-                PrintWriter writer = Contacts.getInstance().getContact(toname);
-                Utils.sendMessage(writer, status);
-            } catch (Exception ex) { ex.printStackTrace(); }
-        }
-    }
-
-    /**
-     * remove contact from active list and send the online list to everyone
-	 *
-	 * @param
-	 * 	name - the contact removed from the list
-     * */
-	public void removeContact(String name)
-	{
-		Contacts.getInstance().removeContact(name);
-		System.out.println(name + " has been removed from online contacts");
-	}
-
 }
