@@ -6,7 +6,7 @@ package org.server;
  */
 public class App 
 {
-    private final static int PORT_NUM = 3000;
+    private final static int PORT_NUM = 58009;
     
     public static void main( String[] args )
     {

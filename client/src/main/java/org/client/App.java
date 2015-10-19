@@ -16,8 +16,8 @@ import org.common.Utils;
  */
 public class App 
 {
-    private static final String serverAddress = "127.0.0.1";
-    private static final int serverPort = 3000;
+    private static final String serverAddress = "csa2.bu.edu";
+    private static final int serverPort = 58009;
     private Socket sock;
     private PrintWriter out;
     private BufferedReader in;
