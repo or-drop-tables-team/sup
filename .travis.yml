@@ -1,1 +1,4 @@
 language: java
+
+notifications:
+  slack: sup-chat:V4xUPmFKpGtcHETLBfgP55ZJ
