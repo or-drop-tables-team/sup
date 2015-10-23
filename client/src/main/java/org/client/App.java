@@ -84,10 +84,10 @@ public class App
 		// pretend there's a user logged on named "user"
 		while(true) {
 			// is the message a command to the server or a chat message?
-			String msgType = console.readLine("To enter a command type c. To send a chat message type s: ");
-			// System.out.println("msgType: "+ msgType);
+			String msgType = console.readline("To enter a command type c. To send a chat message type s: ");
+			System/out.println("msgType: "+ msgType);
 			if (msgType.equals("c")) {
-				String command = console.readLine("Enter a command:");
+				String command = console.readline("Enter a command: ");
 				String contactsMsg = createContactsMessage(command);
 				Utils.sendMessage(this.out, contactsMsg);
 				String reply = Utils.receiveMessage(this.in);
@@ -137,7 +137,7 @@ public class App
 		if(msg.equals(Utils.SUCCESS_STS)) {
 			return true;
 		} else {
-			System.out.println("Error: " + msg + "good = " + Utils.SUCCESS_STS);
+			System.out.println("Error: " + msg);
 			return false;
 		}
 	}

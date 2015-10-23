@@ -59,7 +59,6 @@ public class SupServer {
 							Contacts.getInstance().addContact( clientname, new PrintWriter(sock.getOutputStream()) );
 							try {
 								Utils.sendMessage(Contacts.getInstance().getContact(clientname), Utils.SUCCESS_STS);
-								System.out.println("message sent: "+ Utils.SUCCESS_STS);
 							} catch (Exception e) {
 								System.out.println("Failed to send confirmation message to new client");
 								e.printStackTrace();
@@ -68,13 +67,12 @@ public class SupServer {
 					} else {
 						// they've already successfully logged in.
 						// if it's not a login message is it a cmd message?
-						String cmdOrChat = message.substring(0, message.indexOf(' '));
-						System.out.println(cmdOrChat);
+						String cmdOrChat = message.substring(0, message.indexOf(' ' - 1));
 						if(cmdOrChat.equals("get")) {
 							// cmd msg, execute command (only get contacts currently implemented).
 							if (message.equals("get contacts")) {
 								System.out.println("contacts request recieved from client.");
-								String contactReply = "contList " + Contacts.getInstance().showContactNames();
+								String contactReply = Contacts.getInstance().showContactNames();
 								System.out.println(contactReply);
 								Utils.sendMessage(new PrintWriter(sock.getOutputStream()), contactReply);
 							}
