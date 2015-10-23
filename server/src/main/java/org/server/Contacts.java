@@ -68,15 +68,6 @@ public class Contacts {
     	return users;
     }
     
-    // get the list of online users as a string
-    public String showContactNames() {
-    	String rtn = "";
-    	for (String key : userList.keySet()) {
-            rtn = rtn + key + "\n";
-        }
-    	return rtn;
-    }
-    
     //get the user name list
     public List<String> getUserList() throws Exception{
     	List<String> users = new ArrayList<String>();
