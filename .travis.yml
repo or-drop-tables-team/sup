@@ -1,4 +1,10 @@
 language: java
-
 notifications:
   slack: sup-chat:V4xUPmFKpGtcHETLBfgP55ZJ
+before_install:
+- openssl aes-256-cbc -K $encrypted_e7132abcc37e_key -iv $encrypted_e7132abcc37e_iv -in ci_rsa.enc -out ci_rsa -d
+- chmod 0600 ci_rsa
+- cp ci_rsa ~/.ssh/id_rsa
+after_success:
+- sudo apt-get install --yes doxygen graphviz
+- ./publish_doxygen.sh
