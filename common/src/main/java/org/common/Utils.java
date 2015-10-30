@@ -10,10 +10,8 @@ import java.io.PrintWriter;
  */
 public class Utils 
 {
-    public static final String SUCCESS_STS = "status 000 OK";
-    public static final String FAIL_INTERNAL = "status 200 Internal Error";
-    public static final String FAIL_LOGIN_USERNAME_TAKEN = "status 101 Username Taken";
-    public static final String FAIL_USER_NOT_ONLINE = "status 104 User Not Online";
+    public static final String SUCCESS_STS = "200 OK";
+    public static final String FAIL_LOGIN_USERNAME_TAKEN = "301 Username Taken";
 
     /**
      * 
@@ -33,20 +31,6 @@ public class Utils
 
         msg = msg + Character.toString((char) EOT);
         out.print(msg);
-        out.flush();
-
-        return 0;
-    }
-    
-    /**
-     * Send object out provided printwriter, terminated with EOT.
-     */
-    public static int sendMessage(PrintWriter out, Object o) {
-
-        int EOT = 0x04;
-
-        o = o + Character.toString((char) EOT);
-        out.print(o);
         out.flush();
 
         return 0;
