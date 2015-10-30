@@ -111,14 +111,39 @@ Classes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1server_1_1_sup_server_1_1_sup_client_handler.html">SupClientHandler</a></td></tr>
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1537e043874522db46e75b87e45cf711"></a><!-- doxytag: member="org::server::SupServer::SupServer" ref="a1537e043874522db46e75b87e45cf711" args="(int port)" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>SupServer</b> (int port)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aaade2151622ede0cafd33df2f11fb73d"></a><!-- doxytag: member="org::server::SupServer::start" ref="aaade2151622ede0cafd33df2f11fb73d" args="()" -->
-void&#160;</td><td class="memItemRight" valign="bottom"><b>start</b> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1server_1_1_sup_server.html#a1537e043874522db46e75b87e45cf711">SupServer</a> (int port)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1server_1_1_sup_server.html#aaade2151622ede0cafd33df2f11fb73d">start</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1server_1_1_sup_server.html#a936674f159114dd13cc515edc36ece5a">tellSomeone</a> (String message, String fromname, String toname)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1server_1_1_sup_server.html#ae75a67af9eeb778f2b2b3771b8886fdc">tellSomeoneStatus</a> (String status, String toname)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1server_1_1_sup_server.html#abf151640a2709a27bf3806055d57c1b4">removeContact</a> (String name)</td></tr>
 </table>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock"><p>This is the main business logic for the server. This class starts and continuously listens for new connections from clients. Each connection is tracked and chat messages are forwarded as appropriate during normal execution. </p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<a class="anchor" id="a1537e043874522db46e75b87e45cf711"></a><!-- doxytag: member="org::server::SupServer::SupServer" ref="a1537e043874522db46e75b87e45cf711" args="(int port)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classorg_1_1server_1_1_sup_server.html#a1537e043874522db46e75b87e45cf711">org.server.SupServer.SupServer</a> </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>port</em></td><td>)</td>
+          <td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Constructor for this class. Simply provide the port the listening socket shall bind to.</p>
+<dl class="params"><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">port</td><td>- port to bind </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <hr/><h2>Member Function Documentation</h2>
 <a class="anchor" id="abf151640a2709a27bf3806055d57c1b4"></a><!-- doxytag: member="org::server::SupServer::removeContact" ref="abf151640a2709a27bf3806055d57c1b4" args="(String name)" -->
 <div class="memitem">
@@ -137,10 +162,27 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>start</b> ()</td></tr
 <p>remove contact from active list and send the online list to everyone</p>
 <dl class="params"><dt><b>Parameters:</b></dt><dd>
   <table class="params">
-    <tr><td class="paramname">name</td><td>- the contact removed from the list </td></tr>
+    <tr><td class="paramname">name</td><td>- the contact to remove from the list </td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a class="anchor" id="aaade2151622ede0cafd33df2f11fb73d"></a><!-- doxytag: member="org::server::SupServer::start" ref="aaade2151622ede0cafd33df2f11fb73d" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classorg_1_1server_1_1_sup_server.html#aaade2151622ede0cafd33df2f11fb73d">org.server.SupServer.start</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Start the server listening at the expected port, ready to acccept new client connections! </p>
 
 </div>
 </div>
@@ -174,7 +216,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>start</b> ()</td></tr
       </table>
 </div>
 <div class="memdoc">
-<p>send the message to the specific user. find the socket by searching userlist </p>
+<p>Send the message to the specific user. Find the socket by searching userlist.</p>
 <dl class="params"><dt><b>Parameters:</b></dt><dd>
   <table class="params">
     <tr><td class="paramname">message</td><td></td></tr>
@@ -213,7 +255,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>start</b> ()</td></tr
 <p>return the status to the specific one</p>
 <dl class="params"><dt><b>Parameters:</b></dt><dd>
   <table class="params">
-    <tr><td class="paramname">status</td><td>- status info toname - the specific one to transfer status </td></tr>
+    <tr><td class="paramname">status</td><td>- status info </td></tr>
+    <tr><td class="paramname">toname</td><td>- the specific one to transfer status </td></tr>
   </table>
   </dd>
 </dl>

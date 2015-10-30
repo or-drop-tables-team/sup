@@ -109,10 +109,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a31a9a414c5b88213b261084bba2595e5"></a><!-- doxytag: member="org::server::SupServer::SupClientHandler::SupClientHandler" ref="a31a9a414c5b88213b261084bba2595e5" args="(Socket clientSocket)" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>SupClientHandler</b> (Socket clientSocket)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6feac25a54fa7973fabd5ca0d1485392"></a><!-- doxytag: member="org::server::SupServer::SupClientHandler::run" ref="a6feac25a54fa7973fabd5ca0d1485392" args="()" -->
-void&#160;</td><td class="memItemRight" valign="bottom"><b>run</b> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1server_1_1_sup_server_1_1_sup_client_handler.html#a31a9a414c5b88213b261084bba2595e5">SupClientHandler</a> (Socket clientSocket)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1server_1_1_sup_server_1_1_sup_client_handler.html#a6feac25a54fa7973fabd5ca0d1485392">run</a> ()</td></tr>
 <tr><td colspan="2"><h2><a name="pac-attribs"></a>
 Package Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af819db373dcaf72378a61a2b62f8e171"></a><!-- doxytag: member="org::server::SupServer::SupClientHandler::reader" ref="af819db373dcaf72378a61a2b62f8e171" args="" -->
@@ -122,6 +120,51 @@ String&#160;</td><td class="memItemRight" valign="bottom"><b>clientname</b> = &q
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3597391313e0781b9329a42b065484df"></a><!-- doxytag: member="org::server::SupServer::SupClientHandler::sock" ref="a3597391313e0781b9329a42b065484df" args="" -->
 Socket&#160;</td><td class="memItemRight" valign="bottom"><b>sock</b></td></tr>
 </table>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock"><p>When the server gets a new connection request from a client a new <a class="el" href="classorg_1_1server_1_1_sup_server_1_1_sup_client_handler.html">SupClientHandler</a> is created and operates in its own thread, handling communications from the connected client. Commands and chat messages can be received and handled in this class. </p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<a class="anchor" id="a31a9a414c5b88213b261084bba2595e5"></a><!-- doxytag: member="org::server::SupServer::SupClientHandler::SupClientHandler" ref="a31a9a414c5b88213b261084bba2595e5" args="(Socket clientSocket)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classorg_1_1server_1_1_sup_server_1_1_sup_client_handler.html#a31a9a414c5b88213b261084bba2595e5">org.server.SupServer.SupClientHandler.SupClientHandler</a> </td>
+          <td>(</td>
+          <td class="paramtype">Socket&#160;</td>
+          <td class="paramname"><em>clientSocket</em></td><td>)</td>
+          <td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Constructor</p>
+<dl class="params"><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">clientSocket</td><td>- the raw socket created for this client connection </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="a6feac25a54fa7973fabd5ca0d1485392"></a><!-- doxytag: member="org::server::SupServer::SupClientHandler::run" ref="a6feac25a54fa7973fabd5ca0d1485392" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classorg_1_1server_1_1_sup_server_1_1_sup_client_handler.html#a6feac25a54fa7973fabd5ca0d1485392">org.server.SupServer.SupClientHandler.run</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Run is the logic that will be (continually) executed during this thread's lifetime. This thread will be running for the duration of the client's connection. </p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>server/src/main/java/org/server/SupServer.java</li>
 </ul>

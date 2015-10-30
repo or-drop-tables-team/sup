@@ -113,7 +113,6 @@ Public Member Functions</h2></td></tr>
 <tr><td colspan="2"><h2><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1common_1_1_utils.html#a5ae6f6c72fce588b167a67c868931b9e">sendMessage</a> (PrintWriter out, String msg)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1common_1_1_utils.html#aff4e5cd2c97baab682aaaaa6bd73000a">sendMessage</a> (PrintWriter out, Object o)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1common_1_1_utils.html#a06e70cd6565243acd649b1a43fcc64e0">receiveMessage</a> (BufferedReader in)</td></tr>
 <tr><td colspan="2"><h2><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
@@ -142,6 +141,7 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>FAIL_U
       </table>
 </div>
 <div class="memdoc">
+<p>Does nothing but provide an easy way to test our test harness.</p>
 <dl class="return"><dt><b>Returns:</b></dt><dd>Life, the universe, everything </dd></dl>
 
 </div>
@@ -167,7 +167,7 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>FAIL_U
   </table>
   </dd>
 </dl>
-<dl class="return"><dt><b>Returns:</b></dt><dd>msg - received message </dd></dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>msg - received message without the EOT character </dd></dl>
 
 </div>
 </div>
@@ -195,35 +195,15 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>FAIL_U
       </table>
 </div>
 <div class="memdoc">
-<p>Send message out provided printwriter, terminated with EOT. </p>
-
-</div>
-</div>
-<a class="anchor" id="aff4e5cd2c97baab682aaaaa6bd73000a"></a><!-- doxytag: member="org::common::Utils::sendMessage" ref="aff4e5cd2c97baab682aaaaa6bd73000a" args="(PrintWriter out, Object o)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">static int <a class="el" href="classorg_1_1common_1_1_utils.html#a5ae6f6c72fce588b167a67c868931b9e">org.common.Utils.sendMessage</a> </td>
-          <td>(</td>
-          <td class="paramtype">PrintWriter&#160;</td>
-          <td class="paramname"><em>out</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">Object&#160;</td>
-          <td class="paramname"><em>o</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td><code> [inline, static]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-<p>Send object out provided printwriter, terminated with EOT. </p>
+<p>Send message out provided printwriter, terminated with EOT.</p>
+<dl class="params"><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">out</td><td>- the output stream for the connected socket associated with the user </td></tr>
+    <tr><td class="paramname">msg</td><td>- formatted message to send</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>integer 0 on success, -1 on fail </dd></dl>
 
 </div>
 </div>

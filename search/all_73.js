@@ -1,7 +1,11 @@
 var searchData=
 [
-  ['sendmessage',['sendMessage',['../classorg_1_1common_1_1_utils.html#a5ae6f6c72fce588b167a67c868931b9e',1,'org::common::Utils.sendMessage(PrintWriter out, String msg)'],['../classorg_1_1common_1_1_utils.html#aff4e5cd2c97baab682aaaaa6bd73000a',1,'org::common::Utils.sendMessage(PrintWriter out, Object o)']]],
-  ['start',['start',['../classorg_1_1client_1_1_app.html#a66a9fac28aee2bdaf338199faa7339ef',1,'org::client::App']]],
+  ['sendmessage',['sendMessage',['../classorg_1_1common_1_1_utils.html#a5ae6f6c72fce588b167a67c868931b9e',1,'org::common::Utils']]],
+  ['serverapp',['ServerApp',['../classorg_1_1server_1_1_server_app.html',1,'org::server']]],
+  ['start',['start',['../classorg_1_1server_1_1_sup_server.html#aaade2151622ede0cafd33df2f11fb73d',1,'org::server::SupServer.start()'],['../classorg_1_1client_1_1_client_app.html#af27ab52f28f4dec261c21a73cbea64c2',1,'org::client::ClientApp.start()']]],
+  ['stoprunning',['stopRunning',['../classorg_1_1client_1_1_message_receiver.html#ac5981757287e4f46c08ba8de8dce5e9e',1,'org::client::MessageReceiver']]],
+  ['supclienthandler',['SupClientHandler',['../classorg_1_1server_1_1_sup_server_1_1_sup_client_handler.html#a31a9a414c5b88213b261084bba2595e5',1,'org::server::SupServer::SupClientHandler']]],
   ['supclienthandler',['SupClientHandler',['../classorg_1_1server_1_1_sup_server_1_1_sup_client_handler.html',1,'org::server::SupServer']]],
-  ['supserver',['SupServer',['../classorg_1_1server_1_1_sup_server.html',1,'org::server']]]
+  ['supserver',['SupServer',['../classorg_1_1server_1_1_sup_server.html',1,'org::server']]],
+  ['supserver',['SupServer',['../classorg_1_1server_1_1_sup_server.html#a1537e043874522db46e75b87e45cf711',1,'org::server::SupServer']]]
 ];
