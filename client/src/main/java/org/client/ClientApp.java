@@ -11,10 +11,10 @@ import java.net.UnknownHostException;
 import org.common.Utils;
 
 /**
- * Hello world!
+ * The main class for the client application. 
  *
  */
-public class App 
+public class ClientApp 
 {
     private static final String serverAddress = "127.0.0.1";
     private static final int serverPort = 3000;
@@ -30,12 +30,15 @@ public class App
      */
     public static void main( String[] args )
     {
-        App client = new App();
+        ClientApp client = new ClientApp();
         client.start();
     }
 
     /**
-     * Start the client logic.
+     * Start the client logic executing. Creates the connections needed and begins
+     * accepting input from the user.
+     * 
+     * @return void
      */
     void start() {
 
@@ -94,6 +97,7 @@ public class App
      * Simple function to craft a message for logging in.
      * 
      * @param username - desired username
+     * 
      * @return the login message
      */
     public String createLoginMessageForUser(String username) {
@@ -120,11 +124,13 @@ public class App
     }
     
     /**
-     * log off from the server
+     * Log off from the server. Ideally should wait until the confirmation from the server
+     * before terminating the connection.
 	 *
-	 * @param 
-	 * 	username - the user log off from the server
-     * */
+	 * @param username - the user log off from the server
+	 * 
+	 * @return void
+     */
 	private void logoff(PrintWriter writer, String username) {
 		String logoffSignal = "logoff " + username;
 		Utils.sendMessage(writer, logoffSignal);
@@ -140,7 +146,10 @@ public class App
 	}
 	
 	/**
-	 * Send a chat message.
+	 * Send a chat message to the server for delivery.
+	 * 
+	 * @param username - username of the logged on user
+	 * @param msg - properly formatted string representing the message user wants to send
 	 */
 	private boolean sendChatMessage(String username, String msg) {
 	    Utils.sendMessage(this.out, createChatMessage(username, msg));                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
@@ -149,7 +158,12 @@ public class App
 	}
 	
 	/**
-	 * Create a chat message
+	 * Create a formatted chat message for delivery through the server.
+	 * 
+	 * @param toUser - username of the destination contact
+	 * @param message - user-provided message to be delivered to the end user
+	 * 
+	 * @return string representing the properly formatted message
 	 */
 	private String createChatMessage(String toUser, String message) {
 	    return "send " + toUser + " " + message;

@@ -4,6 +4,11 @@ import java.io.BufferedReader;
 
 import org.common.Utils;
 
+/**
+ * Provides logic to continuously receive messages from the server and provide notification to
+ * the user. Done in another thread as to not disrupt the user's experience.
+ *
+ */
 public class MessageReceiver implements Runnable {
 
     private BufferedReader in;
@@ -13,6 +18,9 @@ public class MessageReceiver implements Runnable {
         this.in = insock;
     }
     
+    /**
+     * This is the logic run by this object once the thread is started.
+     */
     public void run() {
         this.running = true;
         // while the client is running, read message from the server and display
@@ -44,6 +52,12 @@ public class MessageReceiver implements Runnable {
         }
     }
     
+    /**
+     * Called when this thread should stop executing, probably at the termination of the
+     * application.
+     * 
+     * @return void
+     */
     public void stopRunning() {
         this.running = false;
     }

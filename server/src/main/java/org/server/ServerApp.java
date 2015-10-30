@@ -1,10 +1,10 @@
 package org.server;
 
 /**
- * Hello world!
- *
+ * ServerApp is the main class for the server application. It serves to instantiate and start
+ * the server's business logic.
  */
-public class App 
+public class ServerApp 
 {
     private final static int PORT_NUM = 3000;
     
