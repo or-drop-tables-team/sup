@@ -42,7 +42,7 @@ public class AppTest
     // test the login message looks right
     public void testLoginMessageCreate()
     {
-    	App app = new App();
+    	ClientApp app = new ClientApp();
     	String loginMsg = app.createLoginMessageForUser("foobaz");
     	assertEquals( loginMsg, "login foobaz" );
     }

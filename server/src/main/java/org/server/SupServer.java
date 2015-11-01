@@ -8,19 +8,40 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import org.common.Utils;
 
+/**
+ * This is the main business logic for the server. This class starts and continuously listens
+ * for new connections from clients. Each connection is tracked and chat messages are forwarded as
+ * appropriate during normal execution.
+ *
+ */
 public class SupServer {
 
     private int port;
 
+    /**
+     * Constructor for this class. Simply provide the port the listening socket shall bind to.
+     * 
+     * @param port - port to bind
+     */
     public SupServer(int port) {
         this.port = port;
     }
 
+    /**
+     * When the server gets a new connection request from a client a new SupClientHandler is
+     * created and operates in its own thread, handling communications from the connected client.
+     * Commands and chat messages can be received and handled in this class.
+     */
     public class SupClientHandler implements Runnable {
         BufferedReader reader;
         String clientname = "";
         Socket sock;
 
+        /**
+         * Constructor 
+         * 
+         * @param clientSocket - the raw socket created for this client connection
+         */
         public SupClientHandler(Socket clientSocket) {
             try {
                 sock = clientSocket;
@@ -32,6 +53,10 @@ public class SupServer {
             }
         }
 
+        /**
+         * Run is the logic that will be (continually) executed during this thread's lifetime.
+         * This thread will be running for the duration of the client's connection.
+         */
         public void run() {
             // Run until connection is broken or user terminates
             String message = "";
@@ -88,6 +113,9 @@ public class SupServer {
         }
     }
 
+    /**
+     * Start the server listening at the expected port, ready to acccept new client connections!
+     */
     public void start () {
         ServerSocket supServer = null;
         try{
@@ -119,7 +147,8 @@ public class SupServer {
     }
 
     /**
-     *  send the message to the specific user. find the socket by searching userlist
+     * Send the message to the specific user. Find the socket by searching userlist.
+     * 
      * @param message
      * @param fromname
      * @param toname
@@ -142,10 +171,12 @@ public class SupServer {
     }
 
     /**
-     *
-     * @param message
+     * Chat messages must be specifically formatted. This is a helper to format a message appropriately.
+     * 
+     * @param message - message to send
      * @param fromname - sender username
      * @param toname - recipient username
+     * 
      * @return string of formatted message, ready for sending
      */
     private String createFormattedChatMessage(String message, String fromname, String toname ) {
@@ -156,9 +187,8 @@ public class SupServer {
     /**
      * return the status to the specific one
 	 *
-	 * @param
-	 * 	status - status info
-	 *  toname - the specific one to transfer status
+	 * @param status - status info
+	 * @param toname - the specific one to transfer status
 	 *
      * */
     public void tellSomeoneStatus(String status, String toname)
@@ -174,8 +204,7 @@ public class SupServer {
     /**
      * remove contact from active list and send the online list to everyone
 	 *
-	 * @param
-	 * 	name - the contact removed from the list
+	 * @param name - the contact to remove from the list
      * */
 	public void removeContact(String name)
 	{

@@ -16,6 +16,7 @@ public class Utils
     public static final String FAIL_USER_NOT_ONLINE = "status 104 User Not Online";
 
     /**
+     * Does nothing but provide an easy way to test our test harness.
      * 
      * @return Life, the universe, everything
      */
@@ -26,6 +27,11 @@ public class Utils
 
     /**
      * Send message out provided printwriter, terminated with EOT.
+     * 
+     * @param out - the output stream for the connected socket associated with the user
+     * @param msg - formatted message to send
+     * 
+     * @return integer 0 on success, -1 on fail
      */
     public static int sendMessage(PrintWriter out, String msg) {
 
@@ -37,27 +43,13 @@ public class Utils
 
         return 0;
     }
-    
-    /**
-     * Send object out provided printwriter, terminated with EOT.
-     */
-    public static int sendMessage(PrintWriter out, Object o) {
-
-        int EOT = 0x04;
-
-        o = o + Character.toString((char) EOT);
-        out.print(o);
-        out.flush();
-
-        return 0;
-    }
 
     /**
      * Receive an EOT terminated message.
      * 
      * @param - in - buffered reader for socket to receive on
      * 
-     * @return msg - received message
+     * @return msg - received message without the EOT character
      */
     public static String receiveMessage(BufferedReader in) {
 
