@@ -44,7 +44,12 @@ applications, run java with the .jar as an argument. For example:
 
     java -jar server/target/server-0.0.1.jar
 
-### Continuous Integration
+#### API Documentation
+The [latest docs are always available here](http://or-drop-tables-team.github.io/sup/annotated.html).
+Doxygen parses our source code on every submission and updates our site on GitHub Pages. 
+The script run to make these changes for us is [publish_doxygen.sh](https://github.com/or-drop-tables-team/sup/blob/master/publish_doxygen.sh).
+
+#### Continuous Integration
 We use [Travis](https://travis-ci.org/or-drop-tables-team/sup.svg?branch=master) to build and run 
 all unit tests on every commit.
 The current build status is ![alt text](https://travis-ci.org/or-drop-tables-team/sup.svg?branch=master "Build Status")
