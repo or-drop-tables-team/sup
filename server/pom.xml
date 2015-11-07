@@ -39,7 +39,7 @@
             <manifest>
               <addClasspath>true</addClasspath>
               <classpathPrefix>lib/</classpathPrefix>
-              <mainClass>org.server.App</mainClass>
+              <mainClass>org.server.ServerApp</mainClass>
             </manifest>
           </archive>
         </configuration>
