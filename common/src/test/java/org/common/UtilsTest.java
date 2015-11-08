@@ -7,7 +7,7 @@ import junit.framework.TestSuite;
 /**
  * Unit test for simple App.
  */
-public class UtilsTest 
+public class UtilsTest
     extends TestCase
 {
     /**
@@ -34,5 +34,24 @@ public class UtilsTest
     public void testApp()
     {
         assertTrue( true );
+    }
+
+    /**
+     * Test that strings are tokenized as expected.
+     */
+    public void testTokenizer()
+    {
+        String first = "something";
+        String rest = "bla foo baz !?";
+
+        // Test the basic one, single spaces.
+        TokenPair tp = Utils.tokenize(first + " " + rest);
+        assertEquals(tp.first, first);
+        assertEquals(tp.rest, rest);
+
+        // Add multiple spaces. They should not be trimmed.
+        tp = Utils.tokenize(first + "    " + rest);
+        assertEquals(tp.first, first);
+        assertEquals(tp.rest, "   " + rest);
     }
 }

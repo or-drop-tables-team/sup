@@ -4,11 +4,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+
 /**
- * Hello world!
+ * Common utilities and code shared for both the client and server.
  *
  */
-public class Utils 
+public class Utils
 {
     public static final String SUCCESS_STS = "status 000 OK";
     public static final String FAIL_INTERNAL = "status 200 Internal Error";
@@ -17,7 +18,7 @@ public class Utils
 
     /**
      * Does nothing but provide an easy way to test our test harness.
-     * 
+     *
      * @return Life, the universe, everything
      */
     public int get42( )
@@ -27,10 +28,10 @@ public class Utils
 
     /**
      * Send message out provided printwriter, terminated with EOT.
-     * 
+     *
      * @param out - the output stream for the connected socket associated with the user
      * @param msg - formatted message to send
-     * 
+     *
      * @return integer 0 on success, -1 on fail
      */
     public static int sendMessage(PrintWriter out, String msg) {
@@ -46,9 +47,9 @@ public class Utils
 
     /**
      * Receive an EOT terminated message.
-     * 
+     *
      * @param - in - buffered reader for socket to receive on
-     * 
+     *
      * @return msg - received message without the EOT character
      */
     public static String receiveMessage(BufferedReader in) {
@@ -75,5 +76,21 @@ public class Utils
 
         // now we have the message read in
         return message;
+    }
+
+    /**
+     * Given a protocol message, tokenize it into a TokenPair. This
+     * just means that the first word is split out from the rest, and a tuple
+     * of the first and rest is returned.
+     *
+     * @param str - the entire protocol message to tokenize
+     *
+     * @return TokenPair of the tokenized strings
+     */
+    public static TokenPair tokenize(String str) {
+        String first = str.substring(0, str.indexOf(' '));
+        String rest = str.substring(str.indexOf(' ') + 1);
+        TokenPair tp = new TokenPair(first, rest);
+        return tp;
     }
 }
