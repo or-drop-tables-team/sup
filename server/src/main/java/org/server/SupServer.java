@@ -6,6 +6,8 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+
+import org.common.TokenPair;
 import org.common.Utils;
 
 /**
@@ -20,7 +22,7 @@ public class SupServer {
 
     /**
      * Constructor for this class. Simply provide the port the listening socket shall bind to.
-     * 
+     *
      * @param port - port to bind
      */
     public SupServer(int port) {
@@ -38,8 +40,8 @@ public class SupServer {
         Socket sock;
 
         /**
-         * Constructor 
-         * 
+         * Constructor
+         *
          * @param clientSocket - the raw socket created for this client connection
          */
         public SupClientHandler(Socket clientSocket) {
@@ -92,10 +94,16 @@ public class SupServer {
                     } else {
                         // they've already successfully logged in.
                         // if it's not a login message, it's a chat message. parse it and forward.
-                        String toAndMsg = message.substring(message.indexOf(' ') + 1);
-                        String toname = toAndMsg.split(" ")[0];
-                        String msg = toAndMsg.substring(message.indexOf(' ') + 1);
-                        tellSomeone(msg, this.clientname, toname );
+
+                        // The first token is the chat command. There will come a time when
+                        // we really need to process this to decide what to do, but for now
+                        // we just assume it's a chat msg, beginning with "send".
+                        TokenPair chatCmd = Utils.tokenize(message);
+
+                        // The first token is the dest username, the rest is the message.
+                        TokenPair destUser = Utils.tokenize(chatCmd.rest);
+
+                        tellSomeone(destUser.rest, this.clientname, destUser.first);
                     }
                 }
 
@@ -148,7 +156,7 @@ public class SupServer {
 
     /**
      * Send the message to the specific user. Find the socket by searching userlist.
-     * 
+     *
      * @param message
      * @param fromname
      * @param toname
@@ -172,11 +180,11 @@ public class SupServer {
 
     /**
      * Chat messages must be specifically formatted. This is a helper to format a message appropriately.
-     * 
+     *
      * @param message - message to send
      * @param fromname - sender username
      * @param toname - recipient username
-     * 
+     *
      * @return string of formatted message, ready for sending
      */
     private String createFormattedChatMessage(String message, String fromname, String toname ) {
@@ -186,14 +194,14 @@ public class SupServer {
 
     /**
      * return the status to the specific one
-	 *
-	 * @param status - status info
-	 * @param toname - the specific one to transfer status
-	 *
+     *
+     * @param status - status info
+     * @param toname - the specific one to transfer status
+     *
      * */
     public void tellSomeoneStatus(String status, String toname)
     {
-    	if (Contacts.getInstance().hasContact(toname)) {
+        if (Contacts.getInstance().hasContact(toname)) {
             try {
                 PrintWriter writer = Contacts.getInstance().getContact(toname);
                 Utils.sendMessage(writer, status);
@@ -203,13 +211,13 @@ public class SupServer {
 
     /**
      * remove contact from active list and send the online list to everyone
-	 *
-	 * @param name - the contact to remove from the list
+     *
+     * @param name - the contact to remove from the list
      * */
-	public void removeContact(String name)
-	{
-		Contacts.getInstance().removeContact(name);
-		System.out.println(name + " has been removed from online contacts");
-	}
+    public void removeContact(String name)
+    {
+    	Contacts.getInstance().removeContact(name);
+    	System.out.println(name + " has been removed from online contacts");
+    }
 
 }
