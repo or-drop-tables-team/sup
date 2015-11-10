@@ -64,8 +64,17 @@ public class ClientApp
         loginWindow.setModal(true);
         loginWindow.setVisible(true);
         
+        // TODO instead of going directly into a chat window here, we should open
+        // a list of available contacts. Then clicking on a contact opens a dialog
+        // with that user. We could keep a map of contacts -> windows (much like 
+        // we do for contacts -> sockets in the server) to dispatch to the correct
+        // window in MessageReceiver.
+        
         // Now enter into a chat window.
         ChatWindow chatWindow = new ChatWindow(this);
+        // Have the title of the window dictate the user name of the destination user
+        // and the logged in user. For now the destination user is effectively everyone.
+        chatWindow.setTitle("[" + this.username + "] All");
         chatWindow.setVisible(true);
         
         // Now that we're logged in, start our message receiver to
@@ -88,6 +97,7 @@ public class ClientApp
         Utils.sendMessage(this.out, loginMsg);
         if(statusOk()) {
             System.out.println("Successful login as \"" + username + "\"");
+            this.username = username;
             return true;
         }
         else {

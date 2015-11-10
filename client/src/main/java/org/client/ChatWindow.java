@@ -1,14 +1,8 @@
 package org.client;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
-import org.common.TokenPair;
-import org.common.Utils;
 
 import javax.swing.SpringLayout;
 import javax.swing.JTextField;
@@ -52,7 +46,7 @@ public class ChatWindow extends JFrame {
                 else {
                     if(clientApp.sendChatMessage(tokens[0], tokens[1])) {
                         // Append to our history, too.
-                        getChatBox().setText(getChatBox().getText() + "\n" + tokens[0] + ": " + tokens[1]);
+                        getChatBox().setText(getChatBox().getText() + "\n" + tokens[0] + " <- " + tokens[1]);
                     }
                 }
                 // Either way, clear the entry.

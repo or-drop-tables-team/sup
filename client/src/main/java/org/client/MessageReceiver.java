@@ -44,12 +44,14 @@ public class MessageReceiver implements Runnable {
                 TokenPair statusTuple = Utils.tokenize(cmdTuple.rest);
                 if(!statusTuple.first.equals("000")) {
                 	System.out.println("Error: " + statusTuple.rest);
+                	this.chatTxtField.setText(this.chatTxtField.getText() + "\nERR: " + statusTuple.rest);
                 }
             } else if(cmdTuple.first.equals("recv")){
                 TokenPair userChatTuple = Utils.tokenize(cmdTuple.rest);
                 System.out.println("Got chat message from " + userChatTuple.first + ": " + userChatTuple.rest);
-                this.chatTxtField.setText(this.chatTxtField.getText() + "\n" + userChatTuple.first + ": " + userChatTuple.rest);
+                this.chatTxtField.setText(this.chatTxtField.getText() + "\n" + userChatTuple.first + " -> " + userChatTuple.rest);
             } else {
+                // Ignore it.
                 System.out.println("Unknown command message: " + cmdTuple.first);
             }
         }
