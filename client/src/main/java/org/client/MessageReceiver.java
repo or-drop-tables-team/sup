@@ -2,6 +2,7 @@ package org.client;
 
 import java.io.BufferedReader;
 
+import javax.swing.JTextArea;
 import org.common.TokenPair;
 import org.common.Utils;
 
@@ -14,9 +15,11 @@ public class MessageReceiver implements Runnable {
 
     private BufferedReader in;
     private volatile boolean running;
+    JTextArea chatTxtField;
 
-    MessageReceiver( BufferedReader insock ) {
+    MessageReceiver( BufferedReader insock, JTextArea jTextArea ) {
         this.in = insock;
+        this.chatTxtField = jTextArea;
     }
 
     /**
@@ -45,6 +48,7 @@ public class MessageReceiver implements Runnable {
             } else if(cmdTuple.first.equals("recv")){
                 TokenPair userChatTuple = Utils.tokenize(cmdTuple.rest);
                 System.out.println("Got chat message from " + userChatTuple.first + ": " + userChatTuple.rest);
+                this.chatTxtField.setText(this.chatTxtField.getText() + "\n" + userChatTuple.first + ": " + userChatTuple.rest);
             } else {
                 System.out.println("Unknown command message: " + cmdTuple.first);
             }
