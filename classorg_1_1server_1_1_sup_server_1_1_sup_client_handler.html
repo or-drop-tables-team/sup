@@ -47,7 +47,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -78,7 +80,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -89,8 +91,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
   <div id="nav-path" class="navpath">
     <ul>
-      <li class="navelem"><b>org</b>      </li>
-      <li class="navelem"><b>server</b>      </li>
+      <li class="navelem"><a class="el" href="namespaceorg.html">org</a>      </li>
+      <li class="navelem"><a class="el" href="namespaceorg_1_1server.html">server</a>      </li>
       <li class="navelem"><a class="el" href="classorg_1_1server_1_1_sup_server.html">SupServer</a>      </li>
       <li class="navelem"><a class="el" href="classorg_1_1server_1_1_sup_server_1_1_sup_client_handler.html">SupClientHandler</a>      </li>
     </ul>
@@ -104,7 +106,14 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">org.server.SupServer.SupClientHandler Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<!-- doxytag: class="org::server::SupServer::SupClientHandler" -->
+<!-- doxytag: class="org::server::SupServer::SupClientHandler" --><div class="dynheader">
+Collaboration diagram for org.server.SupServer.SupClientHandler:</div>
+<div class="dyncontent">
+<div class="center"><img src="classorg_1_1server_1_1_sup_server_1_1_sup_client_handler__coll__graph.png" border="0" usemap="#org_8server_8_sup_server_8_sup_client_handler_coll__map" alt="Collaboration graph"/></div>
+<map name="org_8server_8_sup_server_8_sup_client_handler_coll__map" id="org_8server_8_sup_server_8_sup_client_handler_coll__map">
+</map>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+
 <p><a href="classorg_1_1server_1_1_sup_server_1_1_sup_client_handler-members.html">List of all members.</a></p>
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
@@ -113,12 +122,9 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1server_1_1_sup_server_1_1_sup_client_handler.html#a6feac25a54fa7973fabd5ca0d1485392">run</a> ()</td></tr>
 <tr><td colspan="2"><h2><a name="pac-attribs"></a>
 Package Attributes</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af819db373dcaf72378a61a2b62f8e171"></a><!-- doxytag: member="org::server::SupServer::SupClientHandler::reader" ref="af819db373dcaf72378a61a2b62f8e171" args="" -->
-BufferedReader&#160;</td><td class="memItemRight" valign="bottom"><b>reader</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5e9bd4d2cf221a5b4843a2db9dae553a"></a><!-- doxytag: member="org::server::SupServer::SupClientHandler::clientname" ref="a5e9bd4d2cf221a5b4843a2db9dae553a" args="" -->
-String&#160;</td><td class="memItemRight" valign="bottom"><b>clientname</b> = &quot;&quot;</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3597391313e0781b9329a42b065484df"></a><!-- doxytag: member="org::server::SupServer::SupClientHandler::sock" ref="a3597391313e0781b9329a42b065484df" args="" -->
-Socket&#160;</td><td class="memItemRight" valign="bottom"><b>sock</b></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">BufferedReader&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1server_1_1_sup_server_1_1_sup_client_handler.html#af819db373dcaf72378a61a2b62f8e171">reader</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1server_1_1_sup_server_1_1_sup_client_handler.html#a5e9bd4d2cf221a5b4843a2db9dae553a">clientname</a> = &quot;&quot;</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">Socket&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1server_1_1_sup_server_1_1_sup_client_handler.html#a3597391313e0781b9329a42b065484df">sock</a></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>When the server gets a new connection request from a client a new <a class="el" href="classorg_1_1server_1_1_sup_server_1_1_sup_client_handler.html">SupClientHandler</a> is created and operates in its own thread, handling communications from the connected client. Commands and chat messages can be received and handled in this class. </p>
@@ -165,8 +171,48 @@ Socket&#160;</td><td class="memItemRight" valign="bottom"><b>sock</b></td></tr>
 
 </div>
 </div>
+<hr/><h2>Member Data Documentation</h2>
+<a class="anchor" id="a5e9bd4d2cf221a5b4843a2db9dae553a"></a><!-- doxytag: member="org::server::SupServer::SupClientHandler::clientname" ref="a5e9bd4d2cf221a5b4843a2db9dae553a" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">String <a class="el" href="classorg_1_1server_1_1_sup_server_1_1_sup_client_handler.html#a5e9bd4d2cf221a5b4843a2db9dae553a">org.server.SupServer.SupClientHandler.clientname</a> = &quot;&quot;<code> [package]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="af819db373dcaf72378a61a2b62f8e171"></a><!-- doxytag: member="org::server::SupServer::SupClientHandler::reader" ref="af819db373dcaf72378a61a2b62f8e171" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">BufferedReader <a class="el" href="classorg_1_1server_1_1_sup_server_1_1_sup_client_handler.html#af819db373dcaf72378a61a2b62f8e171">org.server.SupServer.SupClientHandler.reader</a><code> [package]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a3597391313e0781b9329a42b065484df"></a><!-- doxytag: member="org::server::SupServer::SupClientHandler::sock" ref="a3597391313e0781b9329a42b065484df" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Socket <a class="el" href="classorg_1_1server_1_1_sup_server_1_1_sup_client_handler.html#a3597391313e0781b9329a42b065484df">org.server.SupServer.SupClientHandler.sock</a><code> [package]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>server/src/main/java/org/server/SupServer.java</li>
+<li>server/src/main/java/org/server/<a class="el" href="_sup_server_8java.html">SupServer.java</a></li>
 </ul>
 </div><!-- contents -->
 <!-- window showing the filter options -->
@@ -174,7 +220,7 @@ Socket&#160;</td><td class="memItemRight" valign="bottom"><b>sock</b></td></tr>
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">

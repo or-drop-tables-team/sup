@@ -47,7 +47,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -78,7 +80,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -89,8 +91,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
   <div id="nav-path" class="navpath">
     <ul>
-      <li class="navelem"><b>org</b>      </li>
-      <li class="navelem"><b>client</b>      </li>
+      <li class="navelem"><a class="el" href="namespaceorg.html">org</a>      </li>
+      <li class="navelem"><a class="el" href="namespaceorg_1_1client.html">client</a>      </li>
       <li class="navelem"><a class="el" href="classorg_1_1client_1_1_message_receiver.html">MessageReceiver</a>      </li>
     </ul>
   </div>
@@ -98,12 +100,20 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pac-methods">Package Functions</a>  </div>
+<a href="#pac-methods">Package Functions</a> &#124;
+<a href="#pac-attribs">Package Attributes</a>  </div>
   <div class="headertitle">
 <div class="title">org.client.MessageReceiver Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<!-- doxytag: class="org::client::MessageReceiver" -->
+<!-- doxytag: class="org::client::MessageReceiver" --><div class="dynheader">
+Collaboration diagram for org.client.MessageReceiver:</div>
+<div class="dyncontent">
+<div class="center"><img src="classorg_1_1client_1_1_message_receiver__coll__graph.png" border="0" usemap="#org_8client_8_message_receiver_coll__map" alt="Collaboration graph"/></div>
+<map name="org_8client_8_message_receiver_coll__map" id="org_8client_8_message_receiver_coll__map">
+</map>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+
 <p><a href="classorg_1_1client_1_1_message_receiver-members.html">List of all members.</a></p>
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
@@ -112,12 +122,42 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1client_1_1_message_receiver.html#ac5981757287e4f46c08ba8de8dce5e9e">stopRunning</a> ()</td></tr>
 <tr><td colspan="2"><h2><a name="pac-methods"></a>
 Package Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac1dd11f28402bf7e5cc9feae1fe18a76"></a><!-- doxytag: member="org::client::MessageReceiver::MessageReceiver" ref="ac1dd11f28402bf7e5cc9feae1fe18a76" args="(BufferedReader insock)" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>MessageReceiver</b> (BufferedReader insock)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1client_1_1_message_receiver.html#a293bf969c45648c45354259c7284666a">MessageReceiver</a> (BufferedReader insock, JTextArea jTextArea)</td></tr>
+<tr><td colspan="2"><h2><a name="pac-attribs"></a>
+Package Attributes</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">JTextArea&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1client_1_1_message_receiver.html#ab7fa029bb1ee0d531f1e247d5e9ae4da">chatTxtField</a></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>Provides logic to continuously receive messages from the server and provide notification to the user. Done in another thread as to not disrupt the user's experience. </p>
-</div><hr/><h2>Member Function Documentation</h2>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<a class="anchor" id="a293bf969c45648c45354259c7284666a"></a><!-- doxytag: member="org::client::MessageReceiver::MessageReceiver" ref="a293bf969c45648c45354259c7284666a" args="(BufferedReader insock, JTextArea jTextArea)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classorg_1_1client_1_1_message_receiver.html#a293bf969c45648c45354259c7284666a">org.client.MessageReceiver.MessageReceiver</a> </td>
+          <td>(</td>
+          <td class="paramtype">BufferedReader&#160;</td>
+          <td class="paramname"><em>insock</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">JTextArea&#160;</td>
+          <td class="paramname"><em>jTextArea</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [inline, package]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<hr/><h2>Member Function Documentation</h2>
 <a class="anchor" id="a55316106b6dbc2bcda190bffa622b27e"></a><!-- doxytag: member="org::client::MessageReceiver::run" ref="a55316106b6dbc2bcda190bffa622b27e" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -153,8 +193,22 @@ Package Functions</h2></td></tr>
 
 </div>
 </div>
+<hr/><h2>Member Data Documentation</h2>
+<a class="anchor" id="ab7fa029bb1ee0d531f1e247d5e9ae4da"></a><!-- doxytag: member="org::client::MessageReceiver::chatTxtField" ref="ab7fa029bb1ee0d531f1e247d5e9ae4da" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">JTextArea <a class="el" href="classorg_1_1client_1_1_message_receiver.html#ab7fa029bb1ee0d531f1e247d5e9ae4da">org.client.MessageReceiver.chatTxtField</a><code> [package]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>client/src/main/java/org/client/MessageReceiver.java</li>
+<li>client/src/main/java/org/client/<a class="el" href="_message_receiver_8java.html">MessageReceiver.java</a></li>
 </ul>
 </div><!-- contents -->
 <!-- window showing the filter options -->
@@ -162,7 +216,7 @@ Package Functions</h2></td></tr>
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">

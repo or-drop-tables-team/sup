@@ -47,7 +47,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -78,7 +80,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -89,8 +91,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
   <div id="nav-path" class="navpath">
     <ul>
-      <li class="navelem"><b>org</b>      </li>
-      <li class="navelem"><b>common</b>      </li>
+      <li class="navelem"><a class="el" href="namespaceorg.html">org</a>      </li>
+      <li class="navelem"><a class="el" href="namespaceorg_1_1common.html">common</a>      </li>
       <li class="navelem"><a class="el" href="classorg_1_1common_1_1_utils.html">Utils</a>      </li>
     </ul>
   </div>
@@ -114,19 +116,16 @@ Public Member Functions</h2></td></tr>
 Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1common_1_1_utils.html#a5ae6f6c72fce588b167a67c868931b9e">sendMessage</a> (PrintWriter out, String msg)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1common_1_1_utils.html#a06e70cd6565243acd649b1a43fcc64e0">receiveMessage</a> (BufferedReader in)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classorg_1_1common_1_1_token_pair.html">TokenPair</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1common_1_1_utils.html#a1f7ef810eb37c8b4dd97510ad5825d01">tokenize</a> (String str)</td></tr>
 <tr><td colspan="2"><h2><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abb14f26c4eea721ebbabd7e27f6895b6"></a><!-- doxytag: member="org::common::Utils::SUCCESS_STS" ref="abb14f26c4eea721ebbabd7e27f6895b6" args="" -->
-static final String&#160;</td><td class="memItemRight" valign="bottom"><b>SUCCESS_STS</b> = &quot;status 000 OK&quot;</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7d2ada351134eda025b6c506cc738410"></a><!-- doxytag: member="org::common::Utils::FAIL_INTERNAL" ref="a7d2ada351134eda025b6c506cc738410" args="" -->
-static final String&#160;</td><td class="memItemRight" valign="bottom"><b>FAIL_INTERNAL</b> = &quot;status 200 Internal Error&quot;</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5cb2a19c9eb0a71ac7477bfc1c387bf5"></a><!-- doxytag: member="org::common::Utils::FAIL_LOGIN_USERNAME_TAKEN" ref="a5cb2a19c9eb0a71ac7477bfc1c387bf5" args="" -->
-static final String&#160;</td><td class="memItemRight" valign="bottom"><b>FAIL_LOGIN_USERNAME_TAKEN</b> = &quot;status 101 Username Taken&quot;</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a69fe1b4feee5b0af0672463eb13b6ca4"></a><!-- doxytag: member="org::common::Utils::FAIL_USER_NOT_ONLINE" ref="a69fe1b4feee5b0af0672463eb13b6ca4" args="" -->
-static final String&#160;</td><td class="memItemRight" valign="bottom"><b>FAIL_USER_NOT_ONLINE</b> = &quot;status 104 User Not Online&quot;</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static final String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1common_1_1_utils.html#abb14f26c4eea721ebbabd7e27f6895b6">SUCCESS_STS</a> = &quot;status 000 OK&quot;</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static final String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1common_1_1_utils.html#a7d2ada351134eda025b6c506cc738410">FAIL_INTERNAL</a> = &quot;status 200 Internal Error&quot;</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static final String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1common_1_1_utils.html#a5cb2a19c9eb0a71ac7477bfc1c387bf5">FAIL_LOGIN_USERNAME_TAKEN</a> = &quot;status 101 Username Taken&quot;</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static final String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1common_1_1_utils.html#a69fe1b4feee5b0af0672463eb13b6ca4">FAIL_USER_NOT_ONLINE</a> = &quot;status 104 User Not Online&quot;</td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
-<div class="textblock"><p>Hello world! </p>
+<div class="textblock"><p>Common utilities and code shared for both the client and server. </p>
 </div><hr/><h2>Member Function Documentation</h2>
 <a class="anchor" id="a88f15ad86bb80edbf923176873053060"></a><!-- doxytag: member="org::common::Utils::get42" ref="a88f15ad86bb80edbf923176873053060" args="()" -->
 <div class="memitem">
@@ -207,8 +206,86 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>FAIL_U
 
 </div>
 </div>
+<a class="anchor" id="a1f7ef810eb37c8b4dd97510ad5825d01"></a><!-- doxytag: member="org::common::Utils::tokenize" ref="a1f7ef810eb37c8b4dd97510ad5825d01" args="(String str)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="classorg_1_1common_1_1_token_pair.html">TokenPair</a> <a class="el" href="classorg_1_1common_1_1_utils.html#a1f7ef810eb37c8b4dd97510ad5825d01">org.common.Utils.tokenize</a> </td>
+          <td>(</td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>str</em></td><td>)</td>
+          <td><code> [inline, static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Given a protocol message, tokenize it into a <a class="el" href="classorg_1_1common_1_1_token_pair.html">TokenPair</a>. This just means that the first word is split out from the rest, and a tuple of the first and rest is returned.</p>
+<dl class="params"><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str</td><td>- the entire protocol message to tokenize</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd><a class="el" href="classorg_1_1common_1_1_token_pair.html">TokenPair</a> of the tokenized strings </dd></dl>
+
+</div>
+</div>
+<hr/><h2>Member Data Documentation</h2>
+<a class="anchor" id="a7d2ada351134eda025b6c506cc738410"></a><!-- doxytag: member="org::common::Utils::FAIL_INTERNAL" ref="a7d2ada351134eda025b6c506cc738410" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">final String <a class="el" href="classorg_1_1common_1_1_utils.html#a7d2ada351134eda025b6c506cc738410">org.common.Utils.FAIL_INTERNAL</a> = &quot;status 200 Internal Error&quot;<code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a5cb2a19c9eb0a71ac7477bfc1c387bf5"></a><!-- doxytag: member="org::common::Utils::FAIL_LOGIN_USERNAME_TAKEN" ref="a5cb2a19c9eb0a71ac7477bfc1c387bf5" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">final String <a class="el" href="classorg_1_1common_1_1_utils.html#a5cb2a19c9eb0a71ac7477bfc1c387bf5">org.common.Utils.FAIL_LOGIN_USERNAME_TAKEN</a> = &quot;status 101 Username Taken&quot;<code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a69fe1b4feee5b0af0672463eb13b6ca4"></a><!-- doxytag: member="org::common::Utils::FAIL_USER_NOT_ONLINE" ref="a69fe1b4feee5b0af0672463eb13b6ca4" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">final String <a class="el" href="classorg_1_1common_1_1_utils.html#a69fe1b4feee5b0af0672463eb13b6ca4">org.common.Utils.FAIL_USER_NOT_ONLINE</a> = &quot;status 104 User Not Online&quot;<code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="abb14f26c4eea721ebbabd7e27f6895b6"></a><!-- doxytag: member="org::common::Utils::SUCCESS_STS" ref="abb14f26c4eea721ebbabd7e27f6895b6" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">final String <a class="el" href="classorg_1_1common_1_1_utils.html#abb14f26c4eea721ebbabd7e27f6895b6">org.common.Utils.SUCCESS_STS</a> = &quot;status 000 OK&quot;<code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>common/src/main/java/org/common/Utils.java</li>
+<li>common/src/main/java/org/common/<a class="el" href="_utils_8java.html">Utils.java</a></li>
 </ul>
 </div><!-- contents -->
 <!-- window showing the filter options -->
@@ -216,7 +293,7 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>FAIL_U
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
