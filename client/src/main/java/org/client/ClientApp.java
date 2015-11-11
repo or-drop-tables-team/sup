@@ -22,6 +22,7 @@ public class ClientApp
     private PrintWriter out;
     private BufferedReader in;
     private MessageReceiver receiver;
+    private String username;
 
     /**
      * Main entry point of the client application.
@@ -41,7 +42,7 @@ public class ClientApp
      * @return void
      */
     void start() {
-
+        
         try {
             this.sock = new Socket(serverAddress, serverPort);
             this.out = new PrintWriter(this.sock.getOutputStream(), true);
@@ -53,44 +54,56 @@ public class ClientApp
             return;
         } catch (IOException e) {
             System.out.println("Failed to connect. Is server running at \"" + serverAddress + ":" + serverPort + "\"?");
-            e.printStackTrace();
             return;
         }
 
         // Now we know the server is online.
 
-        // get their desired username. want to loop until they find an acceptable
-        // username.
-        boolean loginSuccessful = false;
-        Console console = System.console();
-        while(!loginSuccessful) {
-            String username = console.readLine("Enter your username: ");
-            String loginMsg = createLoginMessageForUser(username);
-            Utils.sendMessage(this.out, loginMsg);
-            if(statusOk()) {
-                System.out.println("Successful login as \"" + username + "\"");
-                // we shall stop trying
-                loginSuccessful = true;
-            }
-            else {
-                System.out.println("Failed to login as \"" + username + "\"");	
-            }
-        }
+        // Log on
+        LoginWindow loginWindow = new LoginWindow(this);
+        loginWindow.setModal(true);
+        loginWindow.setVisible(true);
+        
+        // TODO instead of going directly into a chat window here, we should open
+        // a list of available contacts. Then clicking on a contact opens a dialog
+        // with that user. We could keep a map of contacts -> windows (much like 
+        // we do for contacts -> sockets in the server) to dispatch to the correct
+        // window in MessageReceiver.
+        
+        // Now enter into a chat window.
+        ChatWindow chatWindow = new ChatWindow(this);
+        // Have the title of the window dictate the user name of the destination user
+        // and the logged in user. For now the destination user is effectively everyone.
+        chatWindow.setTitle("[" + this.username + "] All");
+        chatWindow.setVisible(true);
         
         // Now that we're logged in, start our message receiver to
         // constantly receive and display message from the server for the client.
-        this.receiver = new MessageReceiver( this.in );
+        this.receiver = new MessageReceiver( this.in, chatWindow.getChatBox(), chatWindow.getErrorMessage() );
         Thread t = new Thread(this.receiver);
         t.start();
-        
-        // TODO temporary, replace with Colin's smarter code
-        // pretend there's a user logged on named "user"
-        while(true) {
-            String user = console.readLine("To username: ");
-            String msg = console.readLine("Message: ");
-            sendChatMessage(user, msg);
+    }
+    
+    /**
+     * Try logon with a username
+     * 
+     * @param Username - to log on with
+     * 
+     * @return true if login successful, else false
+     */
+    public boolean login(String username) {
+        // get their desired username. 
+        String loginMsg = createLoginMessageForUser(username);
+        Utils.sendMessage(this.out, loginMsg);
+        if(statusOk()) {
+            System.out.println("Successful login as \"" + username + "\"");
+            this.username = username;
+            return true;
         }
-        
+        else {
+            System.out.println("Failed to login as \"" + username + "\"");  
+            return false;
+        }
     }
 
     /**
@@ -151,7 +164,7 @@ public class ClientApp
 	 * @param username - username of the logged on user
 	 * @param msg - properly formatted string representing the message user wants to send
 	 */
-	private boolean sendChatMessage(String username, String msg) {
+	boolean sendChatMessage(String username, String msg) {
 	    Utils.sendMessage(this.out, createChatMessage(username, msg));                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
 	    // TODO this needs to check the status, not just return OK
 	    return true;
@@ -168,6 +181,5 @@ public class ClientApp
 	private String createChatMessage(String toUser, String message) {
 	    return "send " + toUser + " " + message;
 	}
-	
 }
   
