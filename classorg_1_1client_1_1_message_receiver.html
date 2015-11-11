@@ -122,20 +122,21 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1client_1_1_message_receiver.html#ac5981757287e4f46c08ba8de8dce5e9e">stopRunning</a> ()</td></tr>
 <tr><td colspan="2"><h2><a name="pac-methods"></a>
 Package Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1client_1_1_message_receiver.html#a293bf969c45648c45354259c7284666a">MessageReceiver</a> (BufferedReader insock, JTextArea jTextArea)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1client_1_1_message_receiver.html#aa25519514a1ef79e252de8473a895260">MessageReceiver</a> (BufferedReader insock, JTextArea jTextArea, JLabel jLabel)</td></tr>
 <tr><td colspan="2"><h2><a name="pac-attribs"></a>
 Package Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">JTextArea&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1client_1_1_message_receiver.html#ab7fa029bb1ee0d531f1e247d5e9ae4da">chatTxtField</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">JLabel&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1client_1_1_message_receiver.html#af809bca35f4dbc3868bf69dc6f00c990">errLabel</a></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>Provides logic to continuously receive messages from the server and provide notification to the user. Done in another thread as to not disrupt the user's experience. </p>
 </div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a293bf969c45648c45354259c7284666a"></a><!-- doxytag: member="org::client::MessageReceiver::MessageReceiver" ref="a293bf969c45648c45354259c7284666a" args="(BufferedReader insock, JTextArea jTextArea)" -->
+<a class="anchor" id="aa25519514a1ef79e252de8473a895260"></a><!-- doxytag: member="org::client::MessageReceiver::MessageReceiver" ref="aa25519514a1ef79e252de8473a895260" args="(BufferedReader insock, JTextArea jTextArea, JLabel jLabel)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classorg_1_1client_1_1_message_receiver.html#a293bf969c45648c45354259c7284666a">org.client.MessageReceiver.MessageReceiver</a> </td>
+          <td class="memname"><a class="el" href="classorg_1_1client_1_1_message_receiver.html#aa25519514a1ef79e252de8473a895260">org.client.MessageReceiver.MessageReceiver</a> </td>
           <td>(</td>
           <td class="paramtype">BufferedReader&#160;</td>
           <td class="paramname"><em>insock</em>, </td>
@@ -144,7 +145,13 @@ Package Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">JTextArea&#160;</td>
-          <td class="paramname"><em>jTextArea</em>&#160;</td>
+          <td class="paramname"><em>jTextArea</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">JLabel&#160;</td>
+          <td class="paramname"><em>jLabel</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -200,6 +207,19 @@ Package Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">JTextArea <a class="el" href="classorg_1_1client_1_1_message_receiver.html#ab7fa029bb1ee0d531f1e247d5e9ae4da">org.client.MessageReceiver.chatTxtField</a><code> [package]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="af809bca35f4dbc3868bf69dc6f00c990"></a><!-- doxytag: member="org::client::MessageReceiver::errLabel" ref="af809bca35f4dbc3868bf69dc6f00c990" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">JLabel <a class="el" href="classorg_1_1client_1_1_message_receiver.html#af809bca35f4dbc3868bf69dc6f00c990">org.client.MessageReceiver.errLabel</a><code> [package]</code></td>
         </tr>
       </table>
 </div>
