@@ -3,20 +3,30 @@ package org.client;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
+import javax.swing.text.DefaultCaret;
+import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.SpringLayout;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.SwingUtilities;
+
+import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
 import javax.swing.JScrollBar;
 import javax.swing.JTextArea;
+import java.awt.Color;
 
 public class ChatWindow extends JFrame {
 
     private JPanel contentPane;
     private JTextField msgEntry;
     private JTextArea chatBox;
+    private JLabel errorMessage;
+    private JScrollPane scrollPane;
 
     /**
      * Create the frame.
@@ -33,6 +43,11 @@ public class ChatWindow extends JFrame {
         contentPane.setLayout(sl_contentPane);
         
         JButton btnSend = new JButton("Send");
+        
+        // Set the default button as "Send" to realize the function of pressing "Enter" button
+        this.getRootPane().setDefaultButton(btnSend);
+
+        
         btnSend.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // For now, assume the first word is the desination user.
@@ -77,15 +92,23 @@ public class ChatWindow extends JFrame {
         contentPane.add(chatBox);
         chatBox.setColumns(10);
         
-        JScrollBar scrollBar = new JScrollBar();
-        sl_contentPane.putConstraint(SpringLayout.NORTH, scrollBar, 0, SpringLayout.NORTH, chatBox);
-        sl_contentPane.putConstraint(SpringLayout.WEST, scrollBar, 6, SpringLayout.EAST, chatBox);
-        sl_contentPane.putConstraint(SpringLayout.SOUTH, scrollBar, -5, SpringLayout.SOUTH, chatBox);
-        contentPane.add(scrollBar);
+        scrollPane = new JScrollPane(chatBox);
+        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollPane.setPreferredSize(new Dimension(430, 200));
+        scrollPane.setAutoscrolls(true);
+        contentPane.add(scrollPane);
         
+        errorMessage = new JLabel("");
+        errorMessage.setForeground(Color.RED);
+        sl_contentPane.putConstraint(SpringLayout.NORTH, errorMessage, 5, SpringLayout.SOUTH, scrollPane);
+        sl_contentPane.putConstraint(SpringLayout.WEST, errorMessage, 20, SpringLayout.WEST, contentPane);
+        sl_contentPane.putConstraint(SpringLayout.SOUTH, errorMessage, -2, SpringLayout.NORTH, msgEntry);
+        sl_contentPane.putConstraint(SpringLayout.EAST, errorMessage, -20, SpringLayout.EAST, contentPane);
+        contentPane.add(errorMessage);
         
+                
     }
-
+    
     /**
      * Get reference to the chat window box.
      * 
@@ -102,5 +125,14 @@ public class ChatWindow extends JFrame {
      */
     public JTextField getMsgEntry() {
         return msgEntry;
+    }
+    
+    /**
+     * Get reference to the error message label.
+     * 
+     * @return
+     */
+    public JLabel getErrorMessage() {
+    	return errorMessage;
     }
 }

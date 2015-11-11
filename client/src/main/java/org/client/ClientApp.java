@@ -79,7 +79,7 @@ public class ClientApp
         
         // Now that we're logged in, start our message receiver to
         // constantly receive and display message from the server for the client.
-        this.receiver = new MessageReceiver( this.in, chatWindow.getChatBox() );
+        this.receiver = new MessageReceiver( this.in, chatWindow.getChatBox(), chatWindow.getErrorMessage() );
         Thread t = new Thread(this.receiver);
         t.start();
     }

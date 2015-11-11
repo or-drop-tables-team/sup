@@ -3,13 +3,15 @@ package org.client;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
 import javax.swing.SpringLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
 import javax.swing.JTextArea;
 import javax.swing.UIManager;
 
@@ -52,6 +54,8 @@ public class LoginWindow extends JDialog {
         txtrUsernameUnavailable.setText("Username Unavailable");
         txtrUsernameUnavailable.setVisible(false);
         contentPane.add(txtrUsernameUnavailable);
+        
+        this.getRootPane().setDefaultButton(btnLogin);
                 
         btnLogin.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
