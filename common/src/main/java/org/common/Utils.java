@@ -15,6 +15,8 @@ public class Utils
     public static final String FAIL_INTERNAL = "status 200 Internal Error";
     public static final String FAIL_LOGIN_USERNAME_TAKEN = "status 101 Username Taken";
     public static final String FAIL_USER_NOT_ONLINE = "status 104 User Not Online";
+    public static final String MSG_RECEIVED = "status 031 Message Received";
+    public static final String MSG_DELIVERED = "status 032 Message Delivered";
 
     /**
      * Does nothing but provide an easy way to test our test harness.
