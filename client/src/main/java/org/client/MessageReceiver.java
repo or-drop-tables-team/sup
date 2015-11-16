@@ -3,6 +3,8 @@ package org.client;
 import java.io.BufferedReader;
 import java.io.PrintWriter;
 
+import javax.swing.JTextArea;
+import javax.swing.JLabel;
 import org.common.TokenPair;
 import org.common.Utils;
 
@@ -16,10 +18,14 @@ public class MessageReceiver implements Runnable {
     private BufferedReader in;
     private PrintWriter out;
     private volatile boolean running;
+    JTextArea chatTxtField;
+    JLabel errLabel;
 
-    MessageReceiver( BufferedReader insock, PrintWriter outsock ) {
+    MessageReceiver( BufferedReader insock, Printwriter.outsock, JTextArea jTextArea, JLabel jLabel ) {
         this.in = insock;
         this.out = outsock;
+        this.chatTxtField = jTextArea;
+        this.errLabel = jLabel;
     }
 
     /**
@@ -41,14 +47,22 @@ public class MessageReceiver implements Runnable {
             if(cmdTuple.first.equals("status")) {
                 // TODO somehow handle status messages in the normal course of operations
                 // probably move the "statusOk()" method from main client app to here
+            	
+            	// Reset the error label message for every thread
+            	this.errLabel.setText("");
                 TokenPair statusTuple = Utils.tokenize(cmdTuple.rest);
                 if(!statusTuple.first.equals("000")) {
                 	System.out.println("Error: " + statusTuple.rest);
+                	this.chatTxtField.setText(this.chatTxtField.getText());
+                	
+                	// Set the text of error label if there is any error occurs
+                	this.errLabel.setText("ERR: " + statusTuple.rest);
                 }
             } else if(cmdTuple.first.equals("recv")){
                 TokenPair userChatTuple = Utils.tokenize(cmdTuple.rest);
                 System.out.println("Got chat message from " + userChatTuple.first + ": " + userChatTuple.rest);
-                
+                this.chatTxtField.setText(this.chatTxtField.getText() + "\n" + userChatTuple.first + " -> " + userChatTuple.rest);
+                 
                 //In future there will be a variety of ways to turn down the message
                 try {
     				//Send the server a message saying message was received
@@ -57,13 +71,13 @@ public class MessageReceiver implements Runnable {
                     System.out.println("Failed to send confirmation message to new client");
                     e.printStackTrace();
                 }
-                
-                
             } else {
+                // Ignore it.
                 System.out.println("Unknown command message: " + cmdTuple.first);
             }
         }
     }
+    
 
     /**
      * Called when this thread should stop executing, probably at the termination of the
