@@ -22,7 +22,7 @@ public class ClientApp
     private PrintWriter out;
     private BufferedReader in;
     private MessageReceiver receiver;
-    private String username;
+    private String uName = "";
 
     /**
      * Main entry point of the client application.
@@ -42,7 +42,7 @@ public class ClientApp
      * @return void
      */
     void start() {
-        
+
         try {
             this.sock = new Socket(serverAddress, serverPort);
             this.out = new PrintWriter(this.sock.getOutputStream(), true);
@@ -54,56 +54,139 @@ public class ClientApp
             return;
         } catch (IOException e) {
             System.out.println("Failed to connect. Is server running at \"" + serverAddress + ":" + serverPort + "\"?");
+            e.printStackTrace();
             return;
         }
 
         // Now we know the server is online.
 
-        // Log on
-        LoginWindow loginWindow = new LoginWindow(this);
-        loginWindow.setModal(true);
-        loginWindow.setVisible(true);
-        
-        // TODO instead of going directly into a chat window here, we should open
-        // a list of available contacts. Then clicking on a contact opens a dialog
-        // with that user. We could keep a map of contacts -> windows (much like 
-        // we do for contacts -> sockets in the server) to dispatch to the correct
-        // window in MessageReceiver.
-        
-        // Now enter into a chat window.
-        ChatWindow chatWindow = new ChatWindow(this);
-        // Have the title of the window dictate the user name of the destination user
-        // and the logged in user. For now the destination user is effectively everyone.
-        chatWindow.setTitle("[" + this.username + "] All");
-        chatWindow.setVisible(true);
+        // get their desired username. want to loop until they find an acceptable
+        // username.
+        boolean loginSuccessful = false;
+        Console console = System.console();
+        while(!loginSuccessful) {
+            String username = console.readLine("Enter your username: ");
+            String loginMsg = createLoginMessageForUser(username);
+            Utils.sendMessage(this.out, loginMsg);
+            if(statusOk()) {
+                System.out.println("Successful login as \"" + username + "\"");
+                // we shall stop trying
+                loginSuccessful = true;
+                uName = username;
+            }
+            else {
+                System.out.println("Failed to login as \"" + username + "\"");	
+            }
+        }
         
         // Now that we're logged in, start our message receiver to
         // constantly receive and display message from the server for the client.
-        this.receiver = new MessageReceiver( this.in, chatWindow.getChatBox(), chatWindow.getErrorMessage() );
+        this.receiver = new MessageReceiver( this.in, this.out );
         Thread t = new Thread(this.receiver);
         t.start();
-    }
-    
-    /**
-     * Try logon with a username
-     * 
-     * @param Username - to log on with
-     * 
-     * @return true if login successful, else false
-     */
-    public boolean login(String username) {
-        // get their desired username. 
-        String loginMsg = createLoginMessageForUser(username);
-        Utils.sendMessage(this.out, loginMsg);
-        if(statusOk()) {
-            System.out.println("Successful login as \"" + username + "\"");
-            this.username = username;
-            return true;
+        
+        // TODO temporary, replace with Colin's smarter code
+        // pretend there's a user logged on named "user"
+        
+        String command = "start";
+        String currentContact = "";
+
+        //Run a loop indefinitely - reading messages from server in another thread
+        while(command != "quit")	{
+
+        try	{
+        	String input = console.readLine();
+        	String firstLetter = input.substring(0, 1);
+        	
+        	if (firstLetter == "/" || firstLetter == "-")	{
+        		//Method found on stack overflow to get the first word of a string
+        		//command is the first word, cutting out the first character, which is / or -
+        		
+        		if (input.contains(" ") )	{
+        			//Check to make sure there are multiple words
+        			command = input.substring(1, input.indexOf(" ") ).toLowerCase();
+        		}	else	{
+        			//Otherwise the command is just the entire string
+        			command = input.substring(1).toLowerCase();
+        		}
+
+        		//Switch on the command
+       /*	Apparently Java (at least my version) does not support switch on strings
+        * 	will use a large if/else block instead
+        *
+        *		switch(command)	{
+        *			case "message":
+        *				//currentContact becomes everything after the command
+        *				//Should be only 1 word, but no check for it yet
+        *				currentContact = input.substring(input.indexOf(" ") + 1);
+        *				break;
+        *			case "quit":
+        *				//Call logoff procedures + this will exit loop next time it tries to execute
+        *				//Can also call logoff procedures after the loop, to exit properly no matter why this loop might break
+        *				break;
+        *			case "contacts":
+        *				//Call a get contacts procedure
+        *				break;
+        *			case "help":
+        *			case "commands":
+        *				//Print the list of available commands
+        *				System.out.println(	"/message <username>\t\tChange your current contact to <username>\n" +
+        *							"/quit\t\t\t\tExit the program\n" +
+        *							"/contacts\t\t\tGet a list of online users\n" +
+        *							"/commands\t\t\tDisplays a list of available user commands"	);
+        *				break;
+        *			default:
+        *				System.out.println("Command not recognized. Type /commands for help.");
+        *		}	//End switch
+        */
+        		//IF ELSE EVERTYTHING
+        		if (command == "message")	{
+        			//currentContact becomes everything after the command
+        	        //Should be only 1 word, but no check for it yet
+        			currentContact = input.substring(input.indexOf(" ") + 1);
+        		}
+        		else if (command == "quit")	{
+        			//Call logoff procedures + this will exit loop next time it tries to execute
+        	        //Can also call logoff procedures after the loop, to exit properly no matter why this loop might break
+        	       logoff(out, uName);
+        		}
+        		else if (command == "contacts")	{
+        			//Call a get contacts procedure
+        		}
+        		else if (command == "help" || command == "help")	{
+        			//Print the list of available commands
+        	        System.out.println(	"/message <username>\t\tChange your current contact to <username>\n" +
+        	        					"/quit\t\t\t\tExit the program\n" +
+        	        					"/contacts\t\t\tGet a list of online users\n" +
+        	        					"/commands\t\t\tDisplays a list of available user commands"	);
+        		}
+        		else {
+        			System.out.println("Command not recognized. Type /commands for help.");
+        		}
+        		
+        	}	//End if command starts with a / or -
+        	else	{
+        		//Else fires if the input is just a message
+        		//Send the entire string as a message to the current contact
+        		sendChatMessage(currentContact, input);
+        	}
+        }	//End Try block
+        catch (Exception e)	{
+        	e.printStackTrace();
         }
-        else {
-            System.out.println("Failed to login as \"" + username + "\"");  
-            return false;
-        }
+
+        }	//End while loop
+        
+        
+       /*	Edited out due to old loop
+        *  while(true) {
+        *
+        *    String user = console.readLine("To username: ");
+        *    String msg = console.readLine("Message: ");
+        *    sendChatMessage(user, msg);
+        *	}
+    	*/
+        
     }
 
     /**
@@ -145,7 +228,7 @@ public class ClientApp
 	 * @return void
      */
 	private void logoff(PrintWriter writer, String username) {
-		String logoffSignal = "logoff " + username;
+		String logoffSignal = "quit " + username;
 		Utils.sendMessage(writer, logoffSignal);
 		try {
 			finalize();
@@ -164,7 +247,7 @@ public class ClientApp
 	 * @param username - username of the logged on user
 	 * @param msg - properly formatted string representing the message user wants to send
 	 */
-	boolean sendChatMessage(String username, String msg) {
+	private boolean sendChatMessage(String username, String msg) {
 	    Utils.sendMessage(this.out, createChatMessage(username, msg));                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
 	    // TODO this needs to check the status, not just return OK
 	    return true;
@@ -181,5 +264,6 @@ public class ClientApp
 	private String createChatMessage(String toUser, String message) {
 	    return "send " + toUser + " " + message;
 	}
+	
 }
   
