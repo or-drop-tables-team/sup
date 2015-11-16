@@ -6,6 +6,9 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
+//import java.util.Arrays;
+import java.util.List;
 
 import org.common.TokenPair;
 import org.common.Utils;
@@ -19,7 +22,8 @@ import org.common.Utils;
 public class SupServer {
 
     private int port;
-
+    List<MessageTracker> unack = new ArrayList<MessageTracker>();
+    
     /**
      * Constructor for this class. Simply provide the port the listening socket shall bind to.
      *
@@ -101,9 +105,49 @@ public class SupServer {
                         TokenPair chatCmd = Utils.tokenize(message);
 
                         // The first token is the dest username, the rest is the message.
-                        TokenPair destUser = Utils.tokenize(chatCmd.rest);
+                        if (chatCmd.first == "send")
+                        {
+                        	TokenPair destUser = Utils.tokenize(chatCmd.rest);
 
-                        tellSomeone(destUser.rest, this.clientname, destUser.first);
+                        	tellSomeone(destUser.rest, this.clientname, destUser.first);
+                        }
+                        else if (chatCmd.first == "status")
+                        {
+                        	//A lot of possible statuses, the important ones are thusfar:
+                        	TokenPair theStatus = Utils.tokenize(chatCmd.rest);
+                        	if (theStatus.first == "031")
+                        	{
+                        		String recipient = this.clientname;
+                        		MessageTracker found = new MessageTracker("","");
+                        		//Check the whole list for messages to the recipient
+                        		for (int i = 0; i < unack.size(); i++)
+                        		{	//Find where the recipient appears, and remember it
+                        			if (unack.get(i).recipient == recipient)
+                        			{
+                        				found = unack.get(i);
+                        				//After remembering first place on list, end the loop
+                        				i = unack.size();
+                        			}
+                        		}
+                        		
+                        		//Make sure the sender actually exists
+                        		if (found.sender != "")
+                        		{	
+                        			try {
+                        				//Send the original sender a message saying message was delivered
+                        				Utils.sendMessage(Contacts.getInstance().getContact(found.sender), Utils.MSG_DELIVERED);
+                        				//Then remove the message record from the list
+                        				unack.remove(found);
+                                    } catch (Exception e) {
+                                        System.out.println("Failed to send confirmation message to new client");
+                                        e.printStackTrace();
+                                    }
+                        			
+                        		}
+                        	}
+                        	
+                        	
+                        }
                     }
                 }
 
@@ -169,6 +213,11 @@ public class SupServer {
                 String msg = createFormattedChatMessage(message, fromname, toname);
                 Utils.sendMessage(writer, msg);
                 tellSomeoneStatus(Utils.SUCCESS_STS, fromname);
+                
+                //Create a log of the message being sent and add it to the list
+                MessageTracker recentMessage = new MessageTracker(fromname, toname);
+                unack.add(recentMessage);
+                
             } catch (Exception ex) {
                 ex.printStackTrace();
                 tellSomeoneStatus(Utils.FAIL_INTERNAL, fromname);
