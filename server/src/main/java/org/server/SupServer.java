@@ -10,6 +10,8 @@ import java.net.Socket;
 import org.common.TokenPair;
 import org.common.Utils;
 
+import java.sql.*;
+
 /**
  * This is the main business logic for the server. This class starts and continuously listens
  * for new connections from clients. Each connection is tracked and chat messages are forwarded as
@@ -69,11 +71,13 @@ public class SupServer {
                     // now we have the message read in. this might be more verbose than we want.
                     System.out.println("read \"" + message + "\" from " + Thread.currentThread().getName());
 
-                    // at this point, for the first message only, we'll need to parse the message
-                    // for a username and add it to contact list, like:
+                    // At this point, for the first message only, we'll need to parse the message
+                    // for a username and add it to contact list. Need to check login.
                     // Only the first time expect this!
                     if(clientname.isEmpty()) {
                         String requestedName = message.split(" ")[1];
+                        // TODO here grab the provided password, once we support it, and make sure the user is
+                        // registered and has the right password. Call authenticateUser(username, pass);
                         if (Contacts.getInstance().hasContact(requestedName)) {
                             // return error, user name taken
                             System.out.println("Contact name taken: " + requestedName );
@@ -216,8 +220,50 @@ public class SupServer {
      * */
     public void removeContact(String name)
     {
-    	Contacts.getInstance().removeContact(name);
-    	System.out.println(name + " has been removed from online contacts");
+        Contacts.getInstance().removeContact(name);
+        System.out.println(name + " has been removed from online contacts");
+    }
+
+    /**
+     * Helper to authenticate a user's login. Take username and password
+     * and return true if authenticated, false if not. We can log speficic error reasons,
+     * but only yes/no is returned to the user.
+     *
+     * @param name - username to check login for
+     * @param password - the password
+     * @param db - name of the database to use. Will always be "users.db" in production,
+     * but makes testing easier.
+     *
+     * @return true if authenticated, false if not
+     */
+    public static boolean authenticateUser(String name, String password, String db) {
+        // Check to see if the user exists. We store a hash of the password,
+        // not the actual password.
+        int hash = Utils.hashPass(password);
+        // Now simply check for this user/password combo in the DB.
+        Connection c = null;
+        PreparedStatement stmt = null;
+        try {
+            Class.forName("org.sqlite.JDBC");
+            c = DriverManager.getConnection("jdbc:sqlite:" + db);
+            System.out.println("Opened database to check credentials: " + name + "/" + hash);
+            // Now make a select statement and see if we find anything.
+            stmt = c.prepareStatement("SELECT * from USERS WHERE NAME=? and PASSHASH=?;");
+            // Using prepared statements protects us from SQL injection.
+            stmt.setString(1, name);
+            stmt.setInt(2, hash);
+            // Execute this query.
+            ResultSet res = stmt.executeQuery();
+            // If there are no rows found, then the login is not valid.
+            if(res.next()) {
+                return true;
+            }
+        }
+        catch(Exception e) {
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.out.println("Unable to open database connection!");
+        }
+        return false;
     }
 
 }

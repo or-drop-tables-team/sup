@@ -1,6 +1,7 @@
 package org.server;
 
 import java.io.File;
+
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -12,10 +13,14 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
+import java.sql.*;
+
+import org.common.Utils;
+
 /**
  * Unit test for simple App.
  */
-public class AppTest 
+public class AppTest
 extends TestCase
 {
     /**
@@ -80,6 +85,44 @@ extends TestCase
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+        }
+    }
+
+    // Test the auth works
+    public void testCheckAuthentication() {
+        // Create a test DB to use.
+        String dbfile = "testdb.db";
+        Connection c = null;
+        Statement stmt = null;
+        try {
+            Class.forName("org.sqlite.JDBC");
+            c = DriverManager.getConnection("jdbc:sqlite:" + dbfile);
+            System.out.println("Opened test authentication database.");
+            // Now make a table
+            stmt = c.createStatement();
+            stmt.executeUpdate("CREATE TABLE IF NOT EXISTS USERS (NAME TEXT NOT NULL, PASSHASH INT NOT NULL);");
+            stmt.executeUpdate("INSERT INTO USERS (NAME, PASSHASH) VALUES ( \"steve\", " + Utils.hashPass("password") + ");");
+            // Close up
+            stmt.close();
+            c.close();
+        }
+        catch(Exception e) {
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.out.println("Failed to operate on test auth database!");
+        }
+
+        // Now verify that our authentication works for "steve/password".
+        assertTrue(SupServer.authenticateUser("steve", "password", "testdb.db"));
+        // And a couple that don't.
+        assertFalse(SupServer.authenticateUser("other", "password", "testdb.db"));
+        assertFalse(SupServer.authenticateUser("steve", "notpassword", "testdb.db"));
+
+        File f = new File(dbfile);
+        // clean up that file
+        try {
+            Files.delete( f.toPath() );
+        } catch (IOException e) {
+            System.out.println("Failed to clean up test database.");
         }
     }
 }

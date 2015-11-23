@@ -93,4 +93,14 @@ public class Utils
         TokenPair tp = new TokenPair(first, rest);
         return tp;
     }
+
+    /**
+     * Given a plaintext password, return the hash for storage and verification.
+     */
+    public static int hashPass(String plaintext) {
+        // Note, it's possible for this to change across Java versions, so as is
+        // there's a possibility we swap underlying Java versions and users won't
+        // be able to log in.
+        return plaintext.hashCode();
+    }
 }

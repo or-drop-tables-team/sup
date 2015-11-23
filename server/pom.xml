@@ -21,12 +21,17 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-    	<groupId>edu.bu</groupId>
-    	<artifactId>common</artifactId>
-    	<version>${project.version}</version>
+        <groupId>edu.bu</groupId>
+        <artifactId>common</artifactId>
+        <version>${project.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>org.xerial</groupId>
+        <artifactId>sqlite-jdbc</artifactId>
+        <version>3.8.11.2</version>
     </dependency>
   </dependencies>
-  
+
   <build>
     <plugins>
       <plugin>
@@ -59,5 +64,5 @@
       </plugin>
     </plugins>
   </build>
-  
+
 </project>
