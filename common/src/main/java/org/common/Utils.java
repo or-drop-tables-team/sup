@@ -1,8 +1,13 @@
 package org.common;
 
 import java.io.BufferedReader;
+
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
+import javax.xml.bind.DatatypeConverter;
 
 
 /**
@@ -95,12 +100,27 @@ public class Utils
     }
 
     /**
-     * Given a plaintext password, return the hash for storage and verification.
+     * Given a plaintext password, return the SHA256 hash for storage and verification.
+     * 
+     * @param plaintext - String to calculate SHA-256 hash of
+     * 
+     * @return hex string of SHA-256 hash. Empty string on error, which means the algorithm
+     * was not found. Since we do not vary the algorithm, this is never expected.
      */
-    public static int hashPass(String plaintext) {
-        // Note, it's possible for this to change across Java versions, so as is
-        // there's a possibility we swap underlying Java versions and users won't
-        // be able to log in.
-        return plaintext.hashCode();
+    public static String hashPass(String plaintext) {
+        // SHA 256 is a 32-byte output, which is too large to store as an integer
+        // in sqlite (max 8 bytes). We could truncate, instead we'll convert to
+        // String and store characters.
+        MessageDigest md;
+        try {
+            md = MessageDigest.getInstance("SHA-256");
+        } catch (NoSuchAlgorithmException e) {
+            System.out.println("ERR: Unable to calculate hash, Algorithm not found.");
+            return "";
+        }
+        md.update(plaintext.getBytes());
+        byte[] result = md.digest();
+        // Now we have the hash bytes in result, format as a string and return.
+        return DatatypeConverter.printHexBinary(result);
     }
 }

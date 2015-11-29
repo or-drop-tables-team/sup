@@ -20,6 +20,7 @@ import java.sql.*;
  */
 public class SupServer {
 
+    public static final String DB_FILE = "sup_auth.db";
     private int port;
 
     /**
@@ -223,6 +224,74 @@ public class SupServer {
         Contacts.getInstance().removeContact(name);
         System.out.println(name + " has been removed from online contacts");
     }
+    
+    /**
+     * Helper to register a new user in the database. Pass the desired username and (plaintext)
+     * password, and if available and appropriate, user will be added to database.
+     * 
+     * @param name - desired username to registered
+     * @param password - plaintext password
+     * @param db - name of the database to use. Will always be DB_FILE in production,
+     * but makes testing easier.
+     * 
+     * @return Utils status string, depending specific error or success
+     */
+    public static String registerUser(String name, String password, String db) {
+        Connection c = null;
+        PreparedStatement createTableStmt = null;
+        PreparedStatement checkUsernameStmt = null;
+        PreparedStatement registerUserStmt = null;
+
+        // TODO We should do some verification of the username and password here, to ensure they are valid
+        // and acceptable.
+        
+        // This could be refactored into multiple functions.
+
+        try {
+            Class.forName("org.sqlite.JDBC");
+            c = DriverManager.getConnection("jdbc:sqlite:" + db);
+            // The table should exist, if this is not our first time, but SQL should handle that special case
+            // for us by creating only if it does not already exist.
+            createTableStmt = c.prepareStatement("CREATE TABLE IF NOT EXISTS USERS (NAME TEXT NOT NULL, PASSHASH TEXT NOT NULL);");
+            createTableStmt.executeUpdate();
+            createTableStmt.close();
+
+            // Test to see whether this username is already registered.
+            // Using prepared statements protects us from SQL injection.
+            checkUsernameStmt = c.prepareStatement("SELECT * from USERS WHERE NAME=?;");
+            checkUsernameStmt.setString(1, name);
+            // Execute this query.
+            ResultSet res = checkUsernameStmt.executeQuery();
+            // If there are no rows found, then the name is taken and cannot be registered.
+            if(res.next()) {
+                res.close();
+                checkUsernameStmt.close();
+                c.close();
+                return Utils.FAIL_LOGIN_USERNAME_TAKEN;
+            }
+            res.close();
+            checkUsernameStmt.close();
+        
+            // Now add the actual users to the DB
+            registerUserStmt = c.prepareStatement("INSERT INTO USERS (NAME, PASSHASH) VALUES (?, ?);");
+            // Using prepared statements protects us from SQL injection.
+            registerUserStmt.setString(1, name);
+            registerUserStmt.setString(2, Utils.hashPass(password));
+            // Execute this query.
+            registerUserStmt.executeUpdate();
+
+            // Close up
+            registerUserStmt.close();
+            c.close();
+        }
+        catch(Exception e) {
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.out.println("Failed to add user \"" + name + "\" to authentication database!");
+            return Utils.FAIL_INTERNAL;
+        }
+ 
+        return Utils.SUCCESS_STS;
+    }
 
     /**
      * Helper to authenticate a user's login. Take username and password
@@ -231,33 +300,35 @@ public class SupServer {
      *
      * @param name - username to check login for
      * @param password - the password
-     * @param db - name of the database to use. Will always be "users.db" in production,
+     * @param db - name of the database to use. Will always be DB_FILE in production,
      * but makes testing easier.
      *
      * @return true if authenticated, false if not
      */
     public static boolean authenticateUser(String name, String password, String db) {
-        // Check to see if the user exists. We store a hash of the password,
+        // Check to see if the user exists. We store a SHA256 hex hash of the password,
         // not the actual password.
-        int hash = Utils.hashPass(password);
+        String hash = Utils.hashPass(password);
         // Now simply check for this user/password combo in the DB.
         Connection c = null;
         PreparedStatement stmt = null;
         try {
             Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:" + db);
-            System.out.println("Opened database to check credentials: " + name + "/" + hash);
             // Now make a select statement and see if we find anything.
             stmt = c.prepareStatement("SELECT * from USERS WHERE NAME=? and PASSHASH=?;");
             // Using prepared statements protects us from SQL injection.
             stmt.setString(1, name);
-            stmt.setInt(2, hash);
+            stmt.setString(2, hash);
             // Execute this query.
             ResultSet res = stmt.executeQuery();
             // If there are no rows found, then the login is not valid.
             if(res.next()) {
                 return true;
             }
+            res.close();
+            stmt.close();
+            c.close();
         }
         catch(Exception e) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
