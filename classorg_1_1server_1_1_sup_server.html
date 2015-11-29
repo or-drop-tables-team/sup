@@ -100,9 +100,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="#pub-static-attribs">Static Public Attributes</a>  </div>
+<a href="#pub-methods">Public Member Functions</a>  </div>
   <div class="headertitle">
 <div class="title">org.server.SupServer Class Reference</div>  </div>
 </div><!--header-->
@@ -120,13 +118,6 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1server_1_1_sup_server.html#a936674f159114dd13cc515edc36ece5a">tellSomeone</a> (String message, String fromname, String toname)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1server_1_1_sup_server.html#ae75a67af9eeb778f2b2b3771b8886fdc">tellSomeoneStatus</a> (String status, String toname)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1server_1_1_sup_server.html#abf151640a2709a27bf3806055d57c1b4">removeContact</a> (String name)</td></tr>
-<tr><td colspan="2"><h2><a name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1server_1_1_sup_server.html#a89e0542ffb5ab628bac9168173d3a6a9">registerUser</a> (String name, String password, String db)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1server_1_1_sup_server.html#a40177a0ea6b4b265e527cd13f31cd776">authenticateUser</a> (String name, String password, String db)</td></tr>
-<tr><td colspan="2"><h2><a name="pub-static-attribs"></a>
-Static Public Attributes</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static final String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1server_1_1_sup_server.html#a8332fd99c1f4bd3f31e19fd69f134a12">DB_FILE</a> = &quot;sup_auth.db&quot;</td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>This is the main business logic for the server. This class starts and continuously listens for new connections from clients. Each connection is tracked and chat messages are forwarded as appropriate during normal execution. </p>
@@ -156,92 +147,6 @@ Static Public Attributes</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="a40177a0ea6b4b265e527cd13f31cd776"></a><!-- doxytag: member="org::server::SupServer::authenticateUser" ref="a40177a0ea6b4b265e527cd13f31cd776" args="(String name, String password, String db)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">static boolean <a class="el" href="classorg_1_1server_1_1_sup_server.html#a40177a0ea6b4b265e527cd13f31cd776">org.server.SupServer.authenticateUser</a> </td>
-          <td>(</td>
-          <td class="paramtype">String&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">String&#160;</td>
-          <td class="paramname"><em>password</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">String&#160;</td>
-          <td class="paramname"><em>db</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td><code> [inline, static]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-<p>Helper to authenticate a user's login. Take username and password and return true if authenticated, false if not. We can log speficic error reasons, but only yes/no is returned to the user.</p>
-<dl class="params"><dt><b>Parameters:</b></dt><dd>
-  <table class="params">
-    <tr><td class="paramname">name</td><td>- username to check login for </td></tr>
-    <tr><td class="paramname">password</td><td>- the password </td></tr>
-    <tr><td class="paramname">db</td><td>- name of the database to use. Will always be DB_FILE in production, but makes testing easier.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="return"><dt><b>Returns:</b></dt><dd>true if authenticated, false if not </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a89e0542ffb5ab628bac9168173d3a6a9"></a><!-- doxytag: member="org::server::SupServer::registerUser" ref="a89e0542ffb5ab628bac9168173d3a6a9" args="(String name, String password, String db)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">static String <a class="el" href="classorg_1_1server_1_1_sup_server.html#a89e0542ffb5ab628bac9168173d3a6a9">org.server.SupServer.registerUser</a> </td>
-          <td>(</td>
-          <td class="paramtype">String&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">String&#160;</td>
-          <td class="paramname"><em>password</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">String&#160;</td>
-          <td class="paramname"><em>db</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td><code> [inline, static]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-<p>Helper to register a new user in the database. Pass the desired username and (plaintext) password, and if available and appropriate, user will be added to database.</p>
-<dl class="params"><dt><b>Parameters:</b></dt><dd>
-  <table class="params">
-    <tr><td class="paramname">name</td><td>- desired username to registered </td></tr>
-    <tr><td class="paramname">password</td><td>- plaintext password </td></tr>
-    <tr><td class="paramname">db</td><td>- name of the database to use. Will always be DB_FILE in production, but makes testing easier.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="return"><dt><b>Returns:</b></dt><dd>Utils status string, depending specific error or success </dd></dl>
-
-</div>
-</div>
 <a class="anchor" id="abf151640a2709a27bf3806055d57c1b4"></a><!-- doxytag: member="org::server::SupServer::removeContact" ref="abf151640a2709a27bf3806055d57c1b4" args="(String name)" -->
 <div class="memitem">
 <div class="memproto">
@@ -357,20 +262,6 @@ Static Public Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
-
-</div>
-</div>
-<hr/><h2>Member Data Documentation</h2>
-<a class="anchor" id="a8332fd99c1f4bd3f31e19fd69f134a12"></a><!-- doxytag: member="org::server::SupServer::DB_FILE" ref="a8332fd99c1f4bd3f31e19fd69f134a12" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">final String <a class="el" href="classorg_1_1server_1_1_sup_server.html#a8332fd99c1f4bd3f31e19fd69f134a12">org.server.SupServer.DB_FILE</a> = &quot;sup_auth.db&quot;<code> [static]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
 
 </div>
 </div>
