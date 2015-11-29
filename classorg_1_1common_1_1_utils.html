@@ -117,7 +117,7 @@ Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1common_1_1_utils.html#a5ae6f6c72fce588b167a67c868931b9e">sendMessage</a> (PrintWriter out, String msg)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1common_1_1_utils.html#a06e70cd6565243acd649b1a43fcc64e0">receiveMessage</a> (BufferedReader in)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classorg_1_1common_1_1_token_pair.html">TokenPair</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1common_1_1_utils.html#a1f7ef810eb37c8b4dd97510ad5825d01">tokenize</a> (String str)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1common_1_1_utils.html#a880d33dc4b1f3153cc486ea47e12e043">hashPass</a> (String plaintext)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1common_1_1_utils.html#a7378ab9e220ed62dd07da40fcc74d664">hashPass</a> (String plaintext)</td></tr>
 <tr><td colspan="2"><h2><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static final String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1common_1_1_utils.html#abb14f26c4eea721ebbabd7e27f6895b6">SUCCESS_STS</a> = &quot;status 000 OK&quot;</td></tr>
@@ -146,12 +146,12 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a880d33dc4b1f3153cc486ea47e12e043"></a><!-- doxytag: member="org::common::Utils::hashPass" ref="a880d33dc4b1f3153cc486ea47e12e043" args="(String plaintext)" -->
+<a class="anchor" id="a7378ab9e220ed62dd07da40fcc74d664"></a><!-- doxytag: member="org::common::Utils::hashPass" ref="a7378ab9e220ed62dd07da40fcc74d664" args="(String plaintext)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">static int <a class="el" href="classorg_1_1common_1_1_utils.html#a880d33dc4b1f3153cc486ea47e12e043">org.common.Utils.hashPass</a> </td>
+          <td class="memname">static String <a class="el" href="classorg_1_1common_1_1_utils.html#a7378ab9e220ed62dd07da40fcc74d664">org.common.Utils.hashPass</a> </td>
           <td>(</td>
           <td class="paramtype">String&#160;</td>
           <td class="paramname"><em>plaintext</em></td><td>)</td>
@@ -160,7 +160,14 @@ Static Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Given a plaintext password, return the hash for storage and verification. </p>
+<p>Given a plaintext password, return the SHA256 hash for storage and verification.</p>
+<dl class="params"><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">plaintext</td><td>- String to calculate SHA-256 hash of</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>hex string of SHA-256 hash. Empty string on error, which means the algorithm was not found. Since we do not vary the algorithm, this is never expected. </dd></dl>
 
 </div>
 </div>
