@@ -73,15 +73,19 @@ public class SupServer {
                     // for a username and add it to contact list, like:
                     // Only the first time expect this!
                     if(clientname.isEmpty()) {
-                        String requestedName = message.split(" ")[1];
-                        if (Contacts.getInstance().hasContact(requestedName)) {
+                        TokenPair loginCmd = Utils.tokenize(message);
+                        if(loginCmd.rest.isEmpty()) {
+                            // blank username, not all right.
+                            Utils.sendMessage(new PrintWriter(sock.getOutputStream()), Utils.FAIL_LOGIN_USERNAME_INVALID);
+                        }
+                        else if (Contacts.getInstance().hasContact(loginCmd.rest)) {
                             // return error, user name taken
-                            System.out.println("Contact name taken: " + requestedName );
+                            System.out.println("Contact name taken: " + loginCmd.rest );
                             Utils.sendMessage(new PrintWriter(sock.getOutputStream()), Utils.FAIL_LOGIN_USERNAME_TAKEN);
                         }
                         else {
                             // success, add them to the collection of online contacts.
-                            clientname = requestedName;
+                            clientname = loginCmd.rest;
                             System.out.println("New contact name: " + clientname );
                             Contacts.getInstance().addContact( clientname, new PrintWriter(sock.getOutputStream()) );
                             try {
