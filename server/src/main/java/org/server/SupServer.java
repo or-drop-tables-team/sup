@@ -69,38 +69,62 @@ public class SupServer {
                 // if connection is broken, receiveMessage will return empty string.
                 while((message = Utils.receiveMessage(this.reader)) != "") {
 
-                    // now we have the message read in. this might be more verbose than we want.
-                    System.out.println("read \"" + message + "\" from " + Thread.currentThread().getName());
-
-                    // At this point, for the first message only, we'll need to parse the message
-                    // for a username and add it to contact list. Need to check login.
-                    // Only the first time expect this!
-                    if(clientname.isEmpty()) {
-                        TokenPair loginCmd = Utils.tokenize(message);
-                        if(loginCmd.rest.isEmpty()) {
-                            // blank username, not all right.
-                            Utils.sendMessage(new PrintWriter(sock.getOutputStream()), Utils.FAIL_LOGIN_USERNAME_INVALID);
-                        }
-                        else if (Contacts.getInstance().hasContact(loginCmd.rest)) {
-                            // return error, user name taken
-                            System.out.println("Contact name taken: " + loginCmd.rest );
-                            Utils.sendMessage(new PrintWriter(sock.getOutputStream()), Utils.FAIL_LOGIN_USERNAME_TAKEN);
-                        }
-                        else {
-                            // success, add them to the collection of online contacts.
-                            clientname = loginCmd.rest;
-                            System.out.println("New contact name: " + clientname );
-                            Contacts.getInstance().addContact( clientname, new PrintWriter(sock.getOutputStream()) );
-                            try {
-                                Utils.sendMessage(Contacts.getInstance().getContact(clientname), Utils.SUCCESS_STS);
-                            } catch (Exception e) {
-                                System.out.println("Failed to send confirmation message to new client");
-                                e.printStackTrace();
+                    // At this point, determine what the message is so we know how to act.
+                    
+                    TokenPair cmdPair = Utils.tokenize(message);
+                    // If the command is to log in, handle that.
+                    if(cmdPair.first.equals("login")) {
+                        // Log the user in.
+                            if(cmdPair.rest.isEmpty()) {
+                                // blank username, not all right.
+                                Utils.sendMessage(new PrintWriter(sock.getOutputStream()), Utils.FAIL_LOGIN_USERNAME_INVALID);
                             }
-                        }
+                            else if (Contacts.getInstance().hasContact(cmdPair.rest)) {
+                                // return error, user name taken
+                                System.out.println("Contact name already logged in: " + cmdPair.rest );
+                                // This isn't exactly an accurate status message, but I do think it should still fail, since
+                                // we don't deliver to multiple sockets (which we would need to do if we allowed them to
+                                // sign on from multiple locations).
+                                Utils.sendMessage(new PrintWriter(sock.getOutputStream()), Utils.FAIL_LOGIN_USERNAME_TAKEN);
+                            }
+                            else {
+                                // They aren't online, try to log them in.
+                                TokenPair namePassPair = Utils.tokenize(cmdPair.rest);
+                                if(authenticateUser(namePassPair.first, namePassPair.rest, DB_FILE)) {
+                                    // Successful login!
+                                    System.out.println("Successful login for user:" + namePassPair.first);
+                                    clientname = namePassPair.first;
+                                } else {
+                                    // Intentionally generic!!
+                                    System.out.println("Login denied for user:" + namePassPair.first + " pass:" + namePassPair.rest);
+                                    Utils.sendMessage(new PrintWriter(sock.getOutputStream()), Utils.FAIL_LOGIN_PERMISSION_DENIED);
+                                }
+                                // Add them to the list of online contacts.
+                                Contacts.getInstance().addContact( clientname, new PrintWriter(sock.getOutputStream()) );
+                                try {
+                                    Utils.sendMessage(Contacts.getInstance().getContact(clientname), Utils.SUCCESS_STS);
+                                } catch (Exception e) {
+                                    System.out.println("Failed to send confirmation message to new client");
+                                    e.printStackTrace();
+                                }
+                            }
+                    // Check for a registration message.
+                    } else if(cmdPair.first.equals("register")) {
+                        TokenPair userPassPair = Utils.tokenize(cmdPair.rest);
+                        String status = registerUser(userPassPair.first, userPassPair.rest, DB_FILE);
+                        // We don't really have to be concerned with what happened here, just trust registerUser 
+                        // to have done the right thing and made the right status.
+                        Utils.sendMessage(new PrintWriter(sock.getOutputStream()), status);
                     } else {
-                        // they've already successfully logged in.
-                        // if it's not a login message, it's a chat message. parse it and forward.
+                        // It's a chat message, make sure the username is set (only done on successful
+                        // login).
+                        if(this.clientname.isEmpty()) {
+                            // Not sure what we should do, but don't process the message. Should we return error?
+                            continue;
+                        }
+
+                        // They've already successfully logged in.
+                        // If it's not a login message, it's a chat message. parse it and forward.
 
                         // The first token is the chat command. There will come a time when
                         // we really need to process this to decide what to do, but for now

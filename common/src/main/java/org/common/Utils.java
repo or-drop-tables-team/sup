@@ -18,9 +18,10 @@ public class Utils
 {
     public static final String SUCCESS_STS = "status 000 OK";
     public static final String FAIL_INTERNAL = "status 200 Internal Error";
-    public static final String FAIL_LOGIN_USERNAME_TAKEN = "status 101 Username Taken";
-    public static final String FAIL_LOGIN_USERNAME_INVALID = "status 105 Username Invalid";
-    public static final String FAIL_USER_NOT_ONLINE = "status 104 User Not Online";
+    public static final String FAIL_LOGIN_USERNAME_TAKEN = "status 111 Username Taken";
+    public static final String FAIL_LOGIN_USERNAME_INVALID = "status 112 Username Invalid";
+    public static final String FAIL_LOGIN_PERMISSION_DENIED = "status 212 Permission Denied";
+    public static final String FAIL_USER_NOT_ONLINE = "status 131 User Not Online";
 
     /**
      * Does nothing but provide an easy way to test our test harness.
