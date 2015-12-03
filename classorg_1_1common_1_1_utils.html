@@ -117,13 +117,15 @@ Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1common_1_1_utils.html#a5ae6f6c72fce588b167a67c868931b9e">sendMessage</a> (PrintWriter out, String msg)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1common_1_1_utils.html#a06e70cd6565243acd649b1a43fcc64e0">receiveMessage</a> (BufferedReader in)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classorg_1_1common_1_1_token_pair.html">TokenPair</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1common_1_1_utils.html#a1f7ef810eb37c8b4dd97510ad5825d01">tokenize</a> (String str)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1common_1_1_utils.html#a7378ab9e220ed62dd07da40fcc74d664">hashPass</a> (String plaintext)</td></tr>
 <tr><td colspan="2"><h2><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static final String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1common_1_1_utils.html#abb14f26c4eea721ebbabd7e27f6895b6">SUCCESS_STS</a> = &quot;status 000 OK&quot;</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static final String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1common_1_1_utils.html#a7d2ada351134eda025b6c506cc738410">FAIL_INTERNAL</a> = &quot;status 200 Internal Error&quot;</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static final String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1common_1_1_utils.html#a5cb2a19c9eb0a71ac7477bfc1c387bf5">FAIL_LOGIN_USERNAME_TAKEN</a> = &quot;status 101 Username Taken&quot;</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static final String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1common_1_1_utils.html#aba031efeb1b735c0663ec013d2d2366b">FAIL_LOGIN_USERNAME_INVALID</a> = &quot;status 105 Username Invalid&quot;</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static final String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1common_1_1_utils.html#a69fe1b4feee5b0af0672463eb13b6ca4">FAIL_USER_NOT_ONLINE</a> = &quot;status 104 User Not Online&quot;</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static final String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1common_1_1_utils.html#a5cb2a19c9eb0a71ac7477bfc1c387bf5">FAIL_LOGIN_USERNAME_TAKEN</a> = &quot;status 111 Username Taken&quot;</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static final String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1common_1_1_utils.html#aba031efeb1b735c0663ec013d2d2366b">FAIL_LOGIN_USERNAME_INVALID</a> = &quot;status 112 Username Invalid&quot;</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static final String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1common_1_1_utils.html#af874df87ac25e9fbcf73a2e4d6934020">FAIL_LOGIN_PERMISSION_DENIED</a> = &quot;status 212 Permission Denied&quot;</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static final String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1common_1_1_utils.html#a69fe1b4feee5b0af0672463eb13b6ca4">FAIL_USER_NOT_ONLINE</a> = &quot;status 131 User Not Online&quot;</td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>Common utilities and code shared for both the client and server. </p>
@@ -143,6 +145,31 @@ Static Public Attributes</h2></td></tr>
 <div class="memdoc">
 <p>Does nothing but provide an easy way to test our test harness.</p>
 <dl class="return"><dt><b>Returns:</b></dt><dd>Life, the universe, everything </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a7378ab9e220ed62dd07da40fcc74d664"></a><!-- doxytag: member="org::common::Utils::hashPass" ref="a7378ab9e220ed62dd07da40fcc74d664" args="(String plaintext)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static String <a class="el" href="classorg_1_1common_1_1_utils.html#a7378ab9e220ed62dd07da40fcc74d664">org.common.Utils.hashPass</a> </td>
+          <td>(</td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>plaintext</em></td><td>)</td>
+          <td><code> [inline, static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Given a plaintext password, return the SHA256 hash for storage and verification.</p>
+<dl class="params"><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">plaintext</td><td>- String to calculate SHA-256 hash of</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>hex string of SHA-256 hash. Empty string on error, which means the algorithm was not found. Since we do not vary the algorithm, this is never expected. </dd></dl>
 
 </div>
 </div>
@@ -246,12 +273,25 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="af874df87ac25e9fbcf73a2e4d6934020"></a><!-- doxytag: member="org::common::Utils::FAIL_LOGIN_PERMISSION_DENIED" ref="af874df87ac25e9fbcf73a2e4d6934020" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">final String <a class="el" href="classorg_1_1common_1_1_utils.html#af874df87ac25e9fbcf73a2e4d6934020">org.common.Utils.FAIL_LOGIN_PERMISSION_DENIED</a> = &quot;status 212 Permission Denied&quot;<code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="aba031efeb1b735c0663ec013d2d2366b"></a><!-- doxytag: member="org::common::Utils::FAIL_LOGIN_USERNAME_INVALID" ref="aba031efeb1b735c0663ec013d2d2366b" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">final String <a class="el" href="classorg_1_1common_1_1_utils.html#aba031efeb1b735c0663ec013d2d2366b">org.common.Utils.FAIL_LOGIN_USERNAME_INVALID</a> = &quot;status 105 Username Invalid&quot;<code> [static]</code></td>
+          <td class="memname">final String <a class="el" href="classorg_1_1common_1_1_utils.html#aba031efeb1b735c0663ec013d2d2366b">org.common.Utils.FAIL_LOGIN_USERNAME_INVALID</a> = &quot;status 112 Username Invalid&quot;<code> [static]</code></td>
         </tr>
       </table>
 </div>
@@ -264,7 +304,7 @@ Static Public Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">final String <a class="el" href="classorg_1_1common_1_1_utils.html#a5cb2a19c9eb0a71ac7477bfc1c387bf5">org.common.Utils.FAIL_LOGIN_USERNAME_TAKEN</a> = &quot;status 101 Username Taken&quot;<code> [static]</code></td>
+          <td class="memname">final String <a class="el" href="classorg_1_1common_1_1_utils.html#a5cb2a19c9eb0a71ac7477bfc1c387bf5">org.common.Utils.FAIL_LOGIN_USERNAME_TAKEN</a> = &quot;status 111 Username Taken&quot;<code> [static]</code></td>
         </tr>
       </table>
 </div>
@@ -277,7 +317,7 @@ Static Public Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">final String <a class="el" href="classorg_1_1common_1_1_utils.html#a69fe1b4feee5b0af0672463eb13b6ca4">org.common.Utils.FAIL_USER_NOT_ONLINE</a> = &quot;status 104 User Not Online&quot;<code> [static]</code></td>
+          <td class="memname">final String <a class="el" href="classorg_1_1common_1_1_utils.html#a69fe1b4feee5b0af0672463eb13b6ca4">org.common.Utils.FAIL_USER_NOT_ONLINE</a> = &quot;status 131 User Not Online&quot;<code> [static]</code></td>
         </tr>
       </table>
 </div>
