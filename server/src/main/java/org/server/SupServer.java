@@ -76,17 +76,19 @@ public class SupServer {
                     // for a username and add it to contact list. Need to check login.
                     // Only the first time expect this!
                     if(clientname.isEmpty()) {
-                        String requestedName = message.split(" ")[1];
-                        // TODO here grab the provided password, once we support it, and make sure the user is
-                        // registered and has the right password. Call authenticateUser(username, pass);
-                        if (Contacts.getInstance().hasContact(requestedName)) {
+                        TokenPair loginCmd = Utils.tokenize(message);
+                        if(loginCmd.rest.isEmpty()) {
+                            // blank username, not all right.
+                            Utils.sendMessage(new PrintWriter(sock.getOutputStream()), Utils.FAIL_LOGIN_USERNAME_INVALID);
+                        }
+                        else if (Contacts.getInstance().hasContact(loginCmd.rest)) {
                             // return error, user name taken
-                            System.out.println("Contact name taken: " + requestedName );
+                            System.out.println("Contact name taken: " + loginCmd.rest );
                             Utils.sendMessage(new PrintWriter(sock.getOutputStream()), Utils.FAIL_LOGIN_USERNAME_TAKEN);
                         }
                         else {
                             // success, add them to the collection of online contacts.
-                            clientname = requestedName;
+                            clientname = loginCmd.rest;
                             System.out.println("New contact name: " + clientname );
                             Contacts.getInstance().addContact( clientname, new PrintWriter(sock.getOutputStream()) );
                             try {
@@ -224,16 +226,16 @@ public class SupServer {
         Contacts.getInstance().removeContact(name);
         System.out.println(name + " has been removed from online contacts");
     }
-    
+
     /**
      * Helper to register a new user in the database. Pass the desired username and (plaintext)
      * password, and if available and appropriate, user will be added to database.
-     * 
+     *
      * @param name - desired username to registered
      * @param password - plaintext password
      * @param db - name of the database to use. Will always be DB_FILE in production,
      * but makes testing easier.
-     * 
+     *
      * @return Utils status string, depending specific error or success
      */
     public static String registerUser(String name, String password, String db) {
@@ -244,7 +246,7 @@ public class SupServer {
 
         // TODO We should do some verification of the username and password here, to ensure they are valid
         // and acceptable.
-        
+
         // This could be refactored into multiple functions.
 
         try {
@@ -271,7 +273,7 @@ public class SupServer {
             }
             res.close();
             checkUsernameStmt.close();
-        
+
             // Now add the actual users to the DB
             registerUserStmt = c.prepareStatement("INSERT INTO USERS (NAME, PASSHASH) VALUES (?, ?);");
             // Using prepared statements protects us from SQL injection.
@@ -289,7 +291,7 @@ public class SupServer {
             System.out.println("Failed to add user \"" + name + "\" to authentication database!");
             return Utils.FAIL_INTERNAL;
         }
- 
+
         return Utils.SUCCESS_STS;
     }
 

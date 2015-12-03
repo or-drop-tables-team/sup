@@ -19,6 +19,7 @@ public class Utils
     public static final String SUCCESS_STS = "status 000 OK";
     public static final String FAIL_INTERNAL = "status 200 Internal Error";
     public static final String FAIL_LOGIN_USERNAME_TAKEN = "status 101 Username Taken";
+    public static final String FAIL_LOGIN_USERNAME_INVALID = "status 105 Username Invalid";
     public static final String FAIL_USER_NOT_ONLINE = "status 104 User Not Online";
 
     /**
