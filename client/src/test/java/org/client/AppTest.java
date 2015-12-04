@@ -52,6 +52,6 @@ public class AppTest
     {
     	ClientApp app = new ClientApp();
     	String regMsg = app.createRegistrationMessageForUserPass("foobaz", "P@ssw0rd");
-    	assertEquals( regMsg, "login foobaz P@ssw0rd" );
+    	assertEquals( regMsg, "register foobaz P@ssw0rd" );
     }
 }

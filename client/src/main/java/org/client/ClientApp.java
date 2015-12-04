@@ -139,7 +139,7 @@ public class ClientApp
      * @return the proper registration message
      */
     public String createRegistrationMessageForUserPass(String username, String password) {
-        return "login " + username + " " + password;
+        return "register " + username + " " + password;
     }
 
     /**

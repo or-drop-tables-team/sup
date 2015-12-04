@@ -14,10 +14,12 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JTextArea;
 import javax.swing.UIManager;
+import javax.swing.JLabel;
 
 public class LoginWindow extends JDialog {
 
     private JPanel contentPane;
+    private JTextField txtPassword;
     private JTextField txtUsername;
 
     /**
@@ -35,38 +37,72 @@ public class LoginWindow extends JDialog {
         contentPane.setLayout(sl_contentPane);
         
         JButton btnLogin = new JButton("Login");
-        sl_contentPane.putConstraint(SpringLayout.WEST, btnLogin, 79, SpringLayout.WEST, contentPane);
-        sl_contentPane.putConstraint(SpringLayout.SOUTH, btnLogin, -10, SpringLayout.SOUTH, contentPane);
+        sl_contentPane.putConstraint(SpringLayout.WEST, btnLogin, 26, SpringLayout.WEST, contentPane);
         contentPane.add(btnLogin);
         
-        txtUsername = new JTextField();
-        txtUsername.setToolTipText("Enter Username");
-        sl_contentPane.putConstraint(SpringLayout.NORTH, txtUsername, 23, SpringLayout.NORTH, contentPane);
-        sl_contentPane.putConstraint(SpringLayout.WEST, txtUsername, 48, SpringLayout.WEST, contentPane);
-        contentPane.add(txtUsername);
-        txtUsername.setColumns(10);
+        txtPassword = new JTextField();
+        sl_contentPane.putConstraint(SpringLayout.EAST, txtPassword, -10, SpringLayout.EAST, contentPane);
+        txtPassword.setToolTipText("Enter Username");
+        contentPane.add(txtPassword);
+        txtPassword.setColumns(10);
         
         final JTextArea txtrUsernameUnavailable = new JTextArea();
+        sl_contentPane.putConstraint(SpringLayout.SOUTH, txtPassword, -5, SpringLayout.NORTH, txtrUsernameUnavailable);
+        sl_contentPane.putConstraint(SpringLayout.NORTH, btnLogin, 6, SpringLayout.SOUTH, txtrUsernameUnavailable);
+        sl_contentPane.putConstraint(SpringLayout.SOUTH, txtrUsernameUnavailable, -35, SpringLayout.SOUTH, contentPane);
+        sl_contentPane.putConstraint(SpringLayout.WEST, txtrUsernameUnavailable, 48, SpringLayout.WEST, contentPane);
         txtrUsernameUnavailable.setBackground(UIManager.getColor("Button.background"));
         txtrUsernameUnavailable.setEditable(false);
-        sl_contentPane.putConstraint(SpringLayout.NORTH, txtrUsernameUnavailable, 6, SpringLayout.SOUTH, txtUsername);
-        sl_contentPane.putConstraint(SpringLayout.WEST, txtrUsernameUnavailable, 0, SpringLayout.WEST, txtUsername);
-        txtrUsernameUnavailable.setText("Username Unavailable");
         txtrUsernameUnavailable.setVisible(false);
         contentPane.add(txtrUsernameUnavailable);
         
         this.getRootPane().setDefaultButton(btnLogin);
+        
+        txtUsername = new JTextField();
+        sl_contentPane.putConstraint(SpringLayout.EAST, txtUsername, -10, SpringLayout.EAST, contentPane);
+        contentPane.add(txtUsername);
+        txtUsername.setColumns(10);
+        
+        JLabel lblUsername = new JLabel("Username");
+        sl_contentPane.putConstraint(SpringLayout.NORTH, lblUsername, 6, SpringLayout.NORTH, contentPane);
+        sl_contentPane.putConstraint(SpringLayout.WEST, lblUsername, 10, SpringLayout.WEST, contentPane);
+        contentPane.add(lblUsername);
+        
+        JLabel lblPassword = new JLabel("Password");
+        sl_contentPane.putConstraint(SpringLayout.NORTH, lblPassword, 6, SpringLayout.NORTH, txtPassword);
+        sl_contentPane.putConstraint(SpringLayout.WEST, lblPassword, 0, SpringLayout.WEST, lblUsername);
+        contentPane.add(lblPassword);
+        
+        JButton btnRegister = new JButton("Register");
+        btnRegister.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		System.out.println("Registering with " + getTxtUsername().getText());
+        		if(clientApp.register(getTxtUsername().getText(), getTxtPassword().getText())){
+        			txtrUsernameUnavailable.setVisible(true);
+        			txtrUsernameUnavailable.setText("Registration successfully");
+        		}
+        		else {
+        			txtrUsernameUnavailable.setVisible(true);
+        			txtrUsernameUnavailable.setText("Registration Failed");
+        		}
+        	}
+        });
+        sl_contentPane.putConstraint(SpringLayout.WEST, btnRegister, 139, SpringLayout.WEST, contentPane);
+        sl_contentPane.putConstraint(SpringLayout.SOUTH, btnRegister, 0, SpringLayout.SOUTH, contentPane);
+        sl_contentPane.putConstraint(SpringLayout.EAST, btnRegister, -22, SpringLayout.EAST, contentPane);
+        contentPane.add(btnRegister);
                 
         btnLogin.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // The login button was clicked. Send the username to login.
                 System.out.println("Logging in with " + getTxtUsername().getText());
-                if(clientApp.login(getTxtUsername().getText())) {
+                if(clientApp.login(getTxtUsername().getText(), getTxtPassword().getText())) {
                     // Then login was successful, close this window and open chat window.
                     dispose();
                 }
                 else {
                     txtrUsernameUnavailable.setVisible(true);
+                    txtrUsernameUnavailable.setText("Login Failed");
                 }
             }
         });
@@ -78,5 +114,9 @@ public class LoginWindow extends JDialog {
      */
     protected JTextField getTxtUsername() {
         return txtUsername;
+    }
+    
+    protected JTextField getTxtPassword() {
+    	return txtPassword;
     }
 }
