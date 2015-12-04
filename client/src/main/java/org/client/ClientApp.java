@@ -85,15 +85,39 @@ public class ClientApp
     }
     
     /**
+     * Try registering a new account
+     * 
+     * @param Username - to log on with
+     * @param Password - password for user
+     * 
+     * @return true if registration successful, else false
+     */
+    public boolean register(String username, String password) {
+        // Reserver their desired username. 
+        String regsiterMsg = createRegistrationMessageForUserPass(username, password);
+        Utils.sendMessage(this.out, regsiterMsg);
+        if(statusOk()) {
+            System.out.println("Successful registration as \"" + username + "\"");
+            this.username = username;
+            return true;
+        }
+        else {
+            System.out.println("Failed to register as \"" + username + "\"");  
+            return false;
+        }
+    }
+
+     /**
      * Try logon with a username
      * 
      * @param Username - to log on with
+     * @param Password - password associated with username
      * 
      * @return true if login successful, else false
      */
-    public boolean login(String username) {
+    public boolean login(String username, String password) {
         // get their desired username. 
-        String loginMsg = createLoginMessageForUser(username);
+        String loginMsg = createLoginMessageForUserPass(username, password);
         Utils.sendMessage(this.out, loginMsg);
         if(statusOk()) {
             System.out.println("Successful login as \"" + username + "\"");
@@ -107,14 +131,27 @@ public class ClientApp
     }
 
     /**
+     * Simple function to craft a message for registration.
+     * 
+     * @param username - desired username
+     * @param password - password for username
+     * 
+     * @return the proper registration message
+     */
+    public String createRegistrationMessageForUserPass(String username, String password) {
+        return "login " + username + " " + password;
+    }
+
+    /**
      * Simple function to craft a message for logging in.
      * 
      * @param username - desired username
+     * @param password - password for username
      * 
      * @return the login message
      */
-    public String createLoginMessageForUser(String username) {
-        return "login " + username;
+    public String createLoginMessageForUserPass(String username, String password) {
+        return "login " + username + " " + password;
     }
 
     /**

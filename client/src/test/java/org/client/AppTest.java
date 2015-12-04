@@ -43,7 +43,15 @@ public class AppTest
     public void testLoginMessageCreate()
     {
     	ClientApp app = new ClientApp();
-    	String loginMsg = app.createLoginMessageForUser("foobaz");
-    	assertEquals( loginMsg, "login foobaz" );
+    	String loginMsg = app.createLoginMessageForUserPass("foobaz", "P@ssw0rd");
+    	assertEquals( loginMsg, "login foobaz P@ssw0rd" );
+    }
+
+    // test the register message looks right
+    public void testRegistrationMessageCreate()
+    {
+    	ClientApp app = new ClientApp();
+    	String regMsg = app.createRegistrationMessageForUserPass("foobaz", "P@ssw0rd");
+    	assertEquals( regMsg, "login foobaz P@ssw0rd" );
     }
 }
