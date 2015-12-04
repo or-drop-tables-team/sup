@@ -111,8 +111,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1client_1_1_client_app.html#a13cc2485e2b1c286dfa43b6de0ad6f6e">login</a> (String username)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1client_1_1_client_app.html#aeb2407339d254fd0a6b69a9567cdd8d2">createLoginMessageForUser</a> (String username)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1client_1_1_client_app.html#a5449f2003d9c4b7576a0c033573ca6b7">register</a> (String username, String password)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1client_1_1_client_app.html#a20c33ca8c0f9932544f9126b75637185">login</a> (String username, String password)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1client_1_1_client_app.html#a621096e2249a2d51e78e2f0333add35b">createRegistrationMessageForUserPass</a> (String username, String password)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1client_1_1_client_app.html#afc1fa56ae5930995e0d8d081d55b394b">createLoginMessageForUserPass</a> (String username, String password)</td></tr>
 <tr><td colspan="2"><h2><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1client_1_1_client_app.html#a2e36128879f05a907233e30c848b1200">main</a> (String[] args)</td></tr>
@@ -124,16 +126,26 @@ Package Functions</h2></td></tr>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>The main class for the client application. </p>
 </div><hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="aeb2407339d254fd0a6b69a9567cdd8d2"></a><!-- doxytag: member="org::client::ClientApp::createLoginMessageForUser" ref="aeb2407339d254fd0a6b69a9567cdd8d2" args="(String username)" -->
+<a class="anchor" id="afc1fa56ae5930995e0d8d081d55b394b"></a><!-- doxytag: member="org::client::ClientApp::createLoginMessageForUserPass" ref="afc1fa56ae5930995e0d8d081d55b394b" args="(String username, String password)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">String <a class="el" href="classorg_1_1client_1_1_client_app.html#aeb2407339d254fd0a6b69a9567cdd8d2">org.client.ClientApp.createLoginMessageForUser</a> </td>
+          <td class="memname">String <a class="el" href="classorg_1_1client_1_1_client_app.html#afc1fa56ae5930995e0d8d081d55b394b">org.client.ClientApp.createLoginMessageForUserPass</a> </td>
           <td>(</td>
           <td class="paramtype">String&#160;</td>
-          <td class="paramname"><em>username</em></td><td>)</td>
-          <td><code> [inline]</code></td>
+          <td class="paramname"><em>username</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>password</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [inline]</code></td>
         </tr>
       </table>
 </div>
@@ -141,7 +153,8 @@ Package Functions</h2></td></tr>
 <p>Simple function to craft a message for logging in.</p>
 <dl class="params"><dt><b>Parameters:</b></dt><dd>
   <table class="params">
-    <tr><td class="paramname">username</td><td>- desired username</td></tr>
+    <tr><td class="paramname">username</td><td>- desired username </td></tr>
+    <tr><td class="paramname">password</td><td>- password for username</td></tr>
   </table>
   </dd>
 </dl>
@@ -149,16 +162,62 @@ Package Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a13cc2485e2b1c286dfa43b6de0ad6f6e"></a><!-- doxytag: member="org::client::ClientApp::login" ref="a13cc2485e2b1c286dfa43b6de0ad6f6e" args="(String username)" -->
+<a class="anchor" id="a621096e2249a2d51e78e2f0333add35b"></a><!-- doxytag: member="org::client::ClientApp::createRegistrationMessageForUserPass" ref="a621096e2249a2d51e78e2f0333add35b" args="(String username, String password)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">boolean <a class="el" href="classorg_1_1client_1_1_client_app.html#a13cc2485e2b1c286dfa43b6de0ad6f6e">org.client.ClientApp.login</a> </td>
+          <td class="memname">String <a class="el" href="classorg_1_1client_1_1_client_app.html#a621096e2249a2d51e78e2f0333add35b">org.client.ClientApp.createRegistrationMessageForUserPass</a> </td>
           <td>(</td>
           <td class="paramtype">String&#160;</td>
-          <td class="paramname"><em>username</em></td><td>)</td>
-          <td><code> [inline]</code></td>
+          <td class="paramname"><em>username</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>password</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Simple function to craft a message for registration.</p>
+<dl class="params"><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">username</td><td>- desired username </td></tr>
+    <tr><td class="paramname">password</td><td>- password for username</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>the proper registration message </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a20c33ca8c0f9932544f9126b75637185"></a><!-- doxytag: member="org::client::ClientApp::login" ref="a20c33ca8c0f9932544f9126b75637185" args="(String username, String password)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">boolean <a class="el" href="classorg_1_1client_1_1_client_app.html#a20c33ca8c0f9932544f9126b75637185">org.client.ClientApp.login</a> </td>
+          <td>(</td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>username</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>password</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [inline]</code></td>
         </tr>
       </table>
 </div>
@@ -166,7 +225,8 @@ Package Functions</h2></td></tr>
 <p>Try logon with a username</p>
 <dl class="params"><dt><b>Parameters:</b></dt><dd>
   <table class="params">
-    <tr><td class="paramname">Username</td><td>- to log on with</td></tr>
+    <tr><td class="paramname">Username</td><td>- to log on with </td></tr>
+    <tr><td class="paramname">Password</td><td>- password associated with username</td></tr>
   </table>
   </dd>
 </dl>
@@ -195,6 +255,42 @@ Package Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a class="anchor" id="a5449f2003d9c4b7576a0c033573ca6b7"></a><!-- doxytag: member="org::client::ClientApp::register" ref="a5449f2003d9c4b7576a0c033573ca6b7" args="(String username, String password)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">boolean <a class="el" href="classorg_1_1client_1_1_client_app.html#a5449f2003d9c4b7576a0c033573ca6b7">org.client.ClientApp.register</a> </td>
+          <td>(</td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>username</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>password</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Try registering a new account</p>
+<dl class="params"><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Username</td><td>- to log on with </td></tr>
+    <tr><td class="paramname">Password</td><td>- password for user</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>true if registration successful, else false </dd></dl>
 
 </div>
 </div>

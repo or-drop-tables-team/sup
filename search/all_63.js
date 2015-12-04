@@ -7,8 +7,9 @@ var searchData=
   ['clientapp',['ClientApp',['../classorg_1_1client_1_1_client_app.html',1,'org::client']]],
   ['clientapp_2ejava',['ClientApp.java',['../_client_app_8java.html',1,'']]],
   ['clientname',['clientname',['../classorg_1_1server_1_1_sup_server_1_1_sup_client_handler.html#a5e9bd4d2cf221a5b4843a2db9dae553a',1,'org::server::SupServer::SupClientHandler']]],
-  ['contacts',['Contacts',['../classorg_1_1server_1_1_contacts.html',1,'org::server']]],
   ['contacts',['Contacts',['../classorg_1_1server_1_1_contacts.html#a4c66123115fe4e336858e0d3a56efef3',1,'org::server::Contacts']]],
+  ['contacts',['Contacts',['../classorg_1_1server_1_1_contacts.html',1,'org::server']]],
   ['contacts_2ejava',['Contacts.java',['../_contacts_8java.html',1,'']]],
-  ['createloginmessageforuser',['createLoginMessageForUser',['../classorg_1_1client_1_1_client_app.html#aeb2407339d254fd0a6b69a9567cdd8d2',1,'org::client::ClientApp']]]
+  ['createloginmessageforuserpass',['createLoginMessageForUserPass',['../classorg_1_1client_1_1_client_app.html#afc1fa56ae5930995e0d8d081d55b394b',1,'org::client::ClientApp']]],
+  ['createregistrationmessageforuserpass',['createRegistrationMessageForUserPass',['../classorg_1_1client_1_1_client_app.html#a621096e2249a2d51e78e2f0333add35b',1,'org::client::ClientApp']]]
 ];
