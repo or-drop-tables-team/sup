@@ -268,9 +268,6 @@ public class SupServer {
         PreparedStatement checkUsernameStmt = null;
         PreparedStatement registerUserStmt = null;
 
-        // TODO We should do some verification of the username and password here, to ensure they are valid
-        // and acceptable.
-
         // This could be refactored into multiple functions.
 
         try {
@@ -362,5 +359,4 @@ public class SupServer {
         }
         return false;
     }
-
 }
