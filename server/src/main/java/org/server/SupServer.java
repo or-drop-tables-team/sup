@@ -10,6 +10,8 @@ import java.net.Socket;
 import org.common.TokenPair;
 import org.common.Utils;
 
+import java.sql.*;
+
 /**
  * This is the main business logic for the server. This class starts and continuously listens
  * for new connections from clients. Each connection is tracked and chat messages are forwarded as
@@ -18,6 +20,7 @@ import org.common.Utils;
  */
 public class SupServer {
 
+    public static final String DB_FILE = "sup_auth.db";
     private int port;
 
     /**
@@ -66,34 +69,62 @@ public class SupServer {
                 // if connection is broken, receiveMessage will return empty string.
                 while((message = Utils.receiveMessage(this.reader)) != "") {
 
-                    // now we have the message read in. this might be more verbose than we want.
-                    System.out.println("read \"" + message + "\" from " + Thread.currentThread().getName());
-
-                    // at this point, for the first message only, we'll need to parse the message
-                    // for a username and add it to contact list, like:
-                    // Only the first time expect this!
-                    if(clientname.isEmpty()) {
-                        String requestedName = message.split(" ")[1];
-                        if (Contacts.getInstance().hasContact(requestedName)) {
-                            // return error, user name taken
-                            System.out.println("Contact name taken: " + requestedName );
-                            Utils.sendMessage(new PrintWriter(sock.getOutputStream()), Utils.FAIL_LOGIN_USERNAME_TAKEN);
-                        }
-                        else {
-                            // success, add them to the collection of online contacts.
-                            clientname = requestedName;
-                            System.out.println("New contact name: " + clientname );
-                            Contacts.getInstance().addContact( clientname, new PrintWriter(sock.getOutputStream()) );
-                            try {
-                                Utils.sendMessage(Contacts.getInstance().getContact(clientname), Utils.SUCCESS_STS);
-                            } catch (Exception e) {
-                                System.out.println("Failed to send confirmation message to new client");
-                                e.printStackTrace();
+                    // At this point, determine what the message is so we know how to act.
+                    
+                    TokenPair cmdPair = Utils.tokenize(message);
+                    // If the command is to log in, handle that.
+                    if(cmdPair.first.equals("login")) {
+                        // Log the user in.
+                            if(cmdPair.rest.isEmpty()) {
+                                // blank username, not all right.
+                                Utils.sendMessage(new PrintWriter(sock.getOutputStream()), Utils.FAIL_LOGIN_USERNAME_INVALID);
                             }
-                        }
+                            else if (Contacts.getInstance().hasContact(cmdPair.rest)) {
+                                // return error, user name taken
+                                System.out.println("Contact name already logged in: " + cmdPair.rest );
+                                // This isn't exactly an accurate status message, but I do think it should still fail, since
+                                // we don't deliver to multiple sockets (which we would need to do if we allowed them to
+                                // sign on from multiple locations).
+                                Utils.sendMessage(new PrintWriter(sock.getOutputStream()), Utils.FAIL_LOGIN_USERNAME_TAKEN);
+                            }
+                            else {
+                                // They aren't online, try to log them in.
+                                TokenPair namePassPair = Utils.tokenize(cmdPair.rest);
+                                if(authenticateUser(namePassPair.first, namePassPair.rest, DB_FILE)) {
+                                    // Successful login!
+                                    System.out.println("Successful login for user:" + namePassPair.first);
+                                    clientname = namePassPair.first;
+                                } else {
+                                    // Intentionally generic!!
+                                    System.out.println("Login denied for user:" + namePassPair.first + " pass:" + namePassPair.rest);
+                                    Utils.sendMessage(new PrintWriter(sock.getOutputStream()), Utils.FAIL_LOGIN_PERMISSION_DENIED);
+                                }
+                                // Add them to the list of online contacts.
+                                Contacts.getInstance().addContact( clientname, new PrintWriter(sock.getOutputStream()) );
+                                try {
+                                    Utils.sendMessage(Contacts.getInstance().getContact(clientname), Utils.SUCCESS_STS);
+                                } catch (Exception e) {
+                                    System.out.println("Failed to send confirmation message to new client");
+                                    e.printStackTrace();
+                                }
+                            }
+                    // Check for a registration message.
+                    } else if(cmdPair.first.equals("register")) {
+                        TokenPair userPassPair = Utils.tokenize(cmdPair.rest);
+                        String status = registerUser(userPassPair.first, userPassPair.rest, DB_FILE);
+                        // We don't really have to be concerned with what happened here, just trust registerUser 
+                        // to have done the right thing and made the right status.
+                        Utils.sendMessage(new PrintWriter(sock.getOutputStream()), status);
                     } else {
-                        // they've already successfully logged in.
-                        // if it's not a login message, it's a chat message. parse it and forward.
+                        // It's a chat message, make sure the username is set (only done on successful
+                        // login).
+                        if(this.clientname.isEmpty()) {
+                            // Not sure what we should do, but don't process the message. Should we return error?
+                            continue;
+                        }
+
+                        // They've already successfully logged in.
+                        // If it's not a login message, it's a chat message. parse it and forward.
 
                         // The first token is the chat command. There will come a time when
                         // we really need to process this to decide what to do, but for now
@@ -216,8 +247,120 @@ public class SupServer {
      * */
     public void removeContact(String name)
     {
-    	Contacts.getInstance().removeContact(name);
-    	System.out.println(name + " has been removed from online contacts");
+        Contacts.getInstance().removeContact(name);
+        System.out.println(name + " has been removed from online contacts");
+    }
+
+    /**
+     * Helper to register a new user in the database. Pass the desired username and (plaintext)
+     * password, and if available and appropriate, user will be added to database.
+     *
+     * @param name - desired username to registered
+     * @param password - plaintext password
+     * @param db - name of the database to use. Will always be DB_FILE in production,
+     * but makes testing easier.
+     *
+     * @return Utils status string, depending specific error or success
+     */
+    public static String registerUser(String name, String password, String db) {
+        Connection c = null;
+        PreparedStatement createTableStmt = null;
+        PreparedStatement checkUsernameStmt = null;
+        PreparedStatement registerUserStmt = null;
+
+        // TODO We should do some verification of the username and password here, to ensure they are valid
+        // and acceptable.
+
+        // This could be refactored into multiple functions.
+
+        try {
+            Class.forName("org.sqlite.JDBC");
+            c = DriverManager.getConnection("jdbc:sqlite:" + db);
+            // The table should exist, if this is not our first time, but SQL should handle that special case
+            // for us by creating only if it does not already exist.
+            createTableStmt = c.prepareStatement("CREATE TABLE IF NOT EXISTS USERS (NAME TEXT NOT NULL, PASSHASH TEXT NOT NULL);");
+            createTableStmt.executeUpdate();
+            createTableStmt.close();
+
+            // Test to see whether this username is already registered.
+            // Using prepared statements protects us from SQL injection.
+            checkUsernameStmt = c.prepareStatement("SELECT * from USERS WHERE NAME=?;");
+            checkUsernameStmt.setString(1, name);
+            // Execute this query.
+            ResultSet res = checkUsernameStmt.executeQuery();
+            // If there are no rows found, then the name is taken and cannot be registered.
+            if(res.next()) {
+                res.close();
+                checkUsernameStmt.close();
+                c.close();
+                return Utils.FAIL_LOGIN_USERNAME_TAKEN;
+            }
+            res.close();
+            checkUsernameStmt.close();
+
+            // Now add the actual users to the DB
+            registerUserStmt = c.prepareStatement("INSERT INTO USERS (NAME, PASSHASH) VALUES (?, ?);");
+            // Using prepared statements protects us from SQL injection.
+            registerUserStmt.setString(1, name);
+            registerUserStmt.setString(2, Utils.hashPass(password));
+            // Execute this query.
+            registerUserStmt.executeUpdate();
+
+            // Close up
+            registerUserStmt.close();
+            c.close();
+        }
+        catch(Exception e) {
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.out.println("Failed to add user \"" + name + "\" to authentication database!");
+            return Utils.FAIL_INTERNAL;
+        }
+
+        return Utils.SUCCESS_STS;
+    }
+
+    /**
+     * Helper to authenticate a user's login. Take username and password
+     * and return true if authenticated, false if not. We can log speficic error reasons,
+     * but only yes/no is returned to the user.
+     *
+     * @param name - username to check login for
+     * @param password - the password
+     * @param db - name of the database to use. Will always be DB_FILE in production,
+     * but makes testing easier.
+     *
+     * @return true if authenticated, false if not
+     */
+    public static boolean authenticateUser(String name, String password, String db) {
+        // Check to see if the user exists. We store a SHA256 hex hash of the password,
+        // not the actual password.
+        String hash = Utils.hashPass(password);
+        // Now simply check for this user/password combo in the DB.
+        Connection c = null;
+        PreparedStatement stmt = null;
+        try {
+            Class.forName("org.sqlite.JDBC");
+            c = DriverManager.getConnection("jdbc:sqlite:" + db);
+            // Now make a select statement and see if we find anything.
+            stmt = c.prepareStatement("SELECT * from USERS WHERE NAME=? and PASSHASH=?;");
+            // Using prepared statements protects us from SQL injection.
+            stmt.setString(1, name);
+            stmt.setString(2, hash);
+            // Execute this query.
+            ResultSet res = stmt.executeQuery();
+            // If there are no rows found, then the login is not valid.
+            if(res.next()) {
+                return true;
+            }
+            res.close();
+            stmt.close();
+            c.close();
+        }
+        catch(Exception e) {
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.out.println("Unable to open database connection!");
+        }
+        return false;
     }
 
 }
