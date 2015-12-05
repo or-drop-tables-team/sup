@@ -129,6 +129,14 @@ public class LoginWindow extends JDialog {
     	return txtPassword;
     }
     
+    /**
+     * Do validation of the username and password fields to ensure they don't contain any
+     * invalid characters. If they do, set the status field appropriately. Note that this
+     * doesn't mean the login/registration was successful, just that the fields are valid
+     * and can be passed to the server.
+     * 
+     * @return true if valid, false if not
+     */
     protected boolean checkEntriesValid() {
         // Check if entries valid
         if(!Utils.isValidUsername(getTxtUsername().getText())) {

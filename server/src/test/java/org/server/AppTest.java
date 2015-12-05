@@ -149,6 +149,4 @@ extends TestCase
             System.out.println("Failed to clean up test database.");
         }
     }
-    
-
 }
