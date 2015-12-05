@@ -15,12 +15,13 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTextArea;
 import javax.swing.UIManager;
 import javax.swing.JLabel;
+import javax.swing.JPasswordField;
 
 public class LoginWindow extends JDialog {
 
     private JPanel contentPane;
-    private JTextField txtPassword;
     private JTextField txtUsername;
+    private JPasswordField txtPassword;
 
     /**
      * Create the frame.
@@ -40,14 +41,7 @@ public class LoginWindow extends JDialog {
         sl_contentPane.putConstraint(SpringLayout.WEST, btnLogin, 26, SpringLayout.WEST, contentPane);
         contentPane.add(btnLogin);
         
-        txtPassword = new JTextField();
-        sl_contentPane.putConstraint(SpringLayout.EAST, txtPassword, -10, SpringLayout.EAST, contentPane);
-        txtPassword.setToolTipText("Enter Username");
-        contentPane.add(txtPassword);
-        txtPassword.setColumns(10);
-        
         final JTextArea txtrUsernameUnavailable = new JTextArea();
-        sl_contentPane.putConstraint(SpringLayout.SOUTH, txtPassword, -5, SpringLayout.NORTH, txtrUsernameUnavailable);
         sl_contentPane.putConstraint(SpringLayout.NORTH, btnLogin, 6, SpringLayout.SOUTH, txtrUsernameUnavailable);
         sl_contentPane.putConstraint(SpringLayout.SOUTH, txtrUsernameUnavailable, -35, SpringLayout.SOUTH, contentPane);
         sl_contentPane.putConstraint(SpringLayout.WEST, txtrUsernameUnavailable, 48, SpringLayout.WEST, contentPane);
@@ -69,8 +63,8 @@ public class LoginWindow extends JDialog {
         contentPane.add(lblUsername);
         
         JLabel lblPassword = new JLabel("Password");
-        sl_contentPane.putConstraint(SpringLayout.NORTH, lblPassword, 6, SpringLayout.NORTH, txtPassword);
         sl_contentPane.putConstraint(SpringLayout.WEST, lblPassword, 0, SpringLayout.WEST, lblUsername);
+        sl_contentPane.putConstraint(SpringLayout.SOUTH, lblPassword, -11, SpringLayout.NORTH, txtrUsernameUnavailable);
         contentPane.add(lblPassword);
         
         JButton btnRegister = new JButton("Register");
@@ -91,6 +85,12 @@ public class LoginWindow extends JDialog {
         sl_contentPane.putConstraint(SpringLayout.SOUTH, btnRegister, 0, SpringLayout.SOUTH, contentPane);
         sl_contentPane.putConstraint(SpringLayout.EAST, btnRegister, -22, SpringLayout.EAST, contentPane);
         contentPane.add(btnRegister);
+        
+        txtPassword = new JPasswordField();
+        txtPassword.setColumns(10);
+        sl_contentPane.putConstraint(SpringLayout.NORTH, txtPassword, 11, SpringLayout.SOUTH, txtUsername);
+        sl_contentPane.putConstraint(SpringLayout.WEST, txtPassword, 0, SpringLayout.WEST, txtUsername);
+        contentPane.add(txtPassword);
                 
         btnLogin.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -116,6 +116,10 @@ public class LoginWindow extends JDialog {
         return txtUsername;
     }
     
+    /**
+     * Get a reference to the password field
+     * @return
+     */
     protected JTextField getTxtPassword() {
     	return txtPassword;
     }
