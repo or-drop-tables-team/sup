@@ -1,11 +1,11 @@
 package org.client;
 
 import java.io.BufferedReader;
-import java.io.Console;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.Socket;
+import javax.net.ssl.SSLSocket;
+import javax.net.ssl.SSLSocketFactory;
 import java.net.UnknownHostException;
 
 import org.common.Utils;
@@ -18,7 +18,7 @@ public class ClientApp
 {
     private static final String serverAddress = "127.0.0.1";
     private static final int serverPort = 3000;
-    private Socket sock;
+    private SSLSocket sock;
     private PrintWriter out;
     private BufferedReader in;
     private MessageReceiver receiver;
@@ -44,7 +44,8 @@ public class ClientApp
     void start() {
         
         try {
-            this.sock = new Socket(serverAddress, serverPort);
+        	SSLSocketFactory sslSockFact = (SSLSocketFactory) SSLSocketFactory.getDefault();
+            this.sock = (SSLSocket) sslSockFact.createSocket(serverAddress, serverPort);
             this.out = new PrintWriter(this.sock.getOutputStream(), true);
             this.in = new BufferedReader(
                     new InputStreamReader(sock.getInputStream()));
