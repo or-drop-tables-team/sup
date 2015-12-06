@@ -76,8 +76,7 @@ public class Utils
                 message = message + Character.toString((char) character);
             }
         } catch (IOException e) {
-            System.out.println("Failed to receive message.");
-            e.printStackTrace();
+        	System.out.println("Failed to receive message. Make sure to provide proper certificate store.");
             // error case return empty string
             return "";
         }

@@ -4,8 +4,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.ServerSocket;
-import java.net.Socket;
+import javax.net.ssl.SSLServerSocket;
+import javax.net.ssl.SSLServerSocketFactory;
+import javax.net.ssl.SSLSocket;
 
 import org.common.TokenPair;
 import org.common.Utils;
@@ -40,14 +41,14 @@ public class SupServer {
     public class SupClientHandler implements Runnable {
         BufferedReader reader;
         String clientname = "";
-        Socket sock;
+        SSLSocket sock;
 
         /**
          * Constructor
          *
          * @param clientSocket - the raw socket created for this client connection
          */
-        public SupClientHandler(Socket clientSocket) {
+        public SupClientHandler(SSLSocket clientSocket) {
             try {
                 sock = clientSocket;
                 InputStreamReader isReader = new InputStreamReader(sock.getInputStream());
@@ -156,21 +157,23 @@ public class SupServer {
      * Start the server listening at the expected port, ready to acccept new client connections!
      */
     public void start () {
-        ServerSocket supServer = null;
+        SSLServerSocket supServerSock = null;
         try{
-            supServer = new ServerSocket(this.port);
+        	SSLServerSocketFactory sslFact =
+        			(SSLServerSocketFactory) SSLServerSocketFactory.getDefault();
+            supServerSock = (SSLServerSocket) sslFact.createServerSocket(this.port);
 
             // everytime receive a socket from a server, create a new thread. put the printwriter into userlist and set the name for client
             while(true) {
-                Socket supClient = supServer.accept();
+                SSLSocket supClientSock = (SSLSocket) supServerSock.accept();
 
-                Thread t = new Thread(new SupClientHandler(supClient));
+                Thread t = new Thread(new SupClientHandler(supClientSock));
                 t.start();
                 System.out.println("Received a new connection");
             }
         }
         catch(IOException ex) {
-            ex.printStackTrace();
+            System.out.println("Error initiating connection! Make sure correct certificates are provided.");
         }
         catch(Exception ex) {
             System.out.println(ex.getMessage());
@@ -178,7 +181,7 @@ public class SupServer {
 
         // all done, clean up.
         try {
-            supServer.close();
+            supServerSock.close();
         } catch (IOException e) {
             System.out.println("Failed to clean up socket, finishing anyway.");
             e.printStackTrace();
