@@ -162,6 +162,7 @@ public class SupServer {
         	SSLServerSocketFactory sslFact =
         			(SSLServerSocketFactory) SSLServerSocketFactory.getDefault();
             supServerSock = (SSLServerSocket) sslFact.createServerSocket(this.port);
+            System.out.println("Server listening on port " + this.port);
 
             // everytime receive a socket from a server, create a new thread. put the printwriter into userlist and set the name for client
             while(true) {
@@ -350,6 +351,9 @@ public class SupServer {
             ResultSet res = stmt.executeQuery();
             // If there are no rows found, then the login is not valid.
             if(res.next()) {
+                res.close();
+                stmt.close();
+                c.close();
                 return true;
             }
             res.close();
