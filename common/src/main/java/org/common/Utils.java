@@ -20,6 +20,7 @@ public class Utils
     public static final String FAIL_INTERNAL = "status 200 Internal Error";
     public static final String FAIL_LOGIN_USERNAME_TAKEN = "status 111 Username Taken";
     public static final String FAIL_LOGIN_USERNAME_INVALID = "status 112 Username Invalid";
+    public static final String FAIL_LOGIN_PASSWORD_INVALID = "status 113 Password Invalid";
     public static final String FAIL_LOGIN_PERMISSION_DENIED = "status 212 Permission Denied";
     public static final String FAIL_USER_NOT_ONLINE = "status 131 User Not Online";
 
@@ -124,5 +125,31 @@ public class Utils
         byte[] result = md.digest();
         // Now we have the hash bytes in result, format as a string and return.
         return DatatypeConverter.printHexBinary(result);
+    }
+    
+    /**
+     * Check of whether a username is valid.
+     * 
+     * @param username - String of the username to check
+     * 
+     * @return boolean true if OK, false if not
+     */
+    public static boolean isValidUsername(String username) {
+        // We'll use a single regular expression to allow only regular characters and
+        // digits for the username
+        return username.matches("[a-zA-Z0-9]+");
+    }
+    
+    /**
+     * Check of whether a password is valid.
+     * 
+     * @param password - String of the password to check
+     * 
+     * @return boolean true if OK, false if not
+     */
+    public static boolean isValidPassword(String password) {
+        // Password is more permissive than username, allow some punctuation
+        // as well.
+        return password.matches("[a-zA-Z0-9_!.,@]+");
     }
 }

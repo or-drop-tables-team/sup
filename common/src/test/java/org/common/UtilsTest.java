@@ -54,4 +54,36 @@ public class UtilsTest
         assertEquals(tp.first, first);
         assertEquals(tp.rest, "   " + rest);
     }
+    
+    // Test our username checker
+    public void testValidUsernameCheck() {
+        // Try some valid usernames
+        assertTrue(Utils.isValidUsername("michael"));
+        assertTrue(Utils.isValidUsername("m1cha3l"));
+        assertTrue(Utils.isValidUsername("SuperUser"));
+        assertTrue(Utils.isValidUsername("a"));
+        
+        // These should all be not valid
+        assertFalse(Utils.isValidUsername(""));
+        assertFalse(Utils.isValidUsername("mike.smith"));
+        assertFalse(Utils.isValidUsername("mike smith"));
+        assertFalse(Utils.isValidUsername("M1ke Smith"));
+        assertFalse(Utils.isValidUsername("steve."));
+    }
+    
+    // Test our password checker
+    public void testValidPasswordCheck() {
+        // Try some valid passwords
+        assertTrue(Utils.isValidPassword("michael."));
+        assertTrue(Utils.isValidPassword("m!cha3l"));
+        assertTrue(Utils.isValidPassword("secr3t"));
+        assertTrue(Utils.isValidPassword("a"));
+        assertTrue(Utils.isValidPassword("secret_password!"));
+        assertTrue(Utils.isValidPassword("p@ssword"));
+        
+        // These should all be not valid
+        assertFalse(Utils.isValidPassword(""));
+        assertFalse(Utils.isValidPassword("pass word"));
+        assertFalse(Utils.isValidPassword("password*"));
+    }
 }
