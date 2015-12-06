@@ -56,7 +56,7 @@ And the client:
     java -Djavax.net.ssl.trustStore=certs/supcertstore.jks -Djavax.net.ssl.trustStorePassword=p@ssword -jar client/target/client-0.0.1.jar
 
 To release in production, you should create a new (secret) key store. See the
-wiki.
+[wiki](https://github.com/or-drop-tables-team/sup/wiki/Crypto).
 
 #### API Documentation
 The [latest docs are always available here](http://or-drop-tables-team.github.io/sup/annotated.html).
