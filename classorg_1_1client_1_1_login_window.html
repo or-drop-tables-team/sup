@@ -100,7 +100,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pro-methods">Protected Member Functions</a>  </div>
+<a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a>  </div>
   <div class="headertitle">
 <div class="title">org.client.LoginWindow Class Reference</div>  </div>
 </div><!--header-->
@@ -128,7 +129,11 @@ Public Member Functions</h2></td></tr>
 <tr><td colspan="2"><h2><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">JTextField&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1client_1_1_login_window.html#a99382b9ccb2616123e4f96fd038b309e">getTxtUsername</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">JTextField&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1client_1_1_login_window.html#a16c100401211d87239cc2e654811b9a5">getTxtPassword</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">JPasswordField&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1client_1_1_login_window.html#a176c270f4adb5398015f8bfdd38e94ff">getTxtPassword</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1client_1_1_login_window.html#ad1d212feca6c23f30653df6ec2585c5d">checkEntriesValid</a> ()</td></tr>
+<tr><td colspan="2"><h2><a name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">JTextArea&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1client_1_1_login_window.html#ad844fa1cb0bd1cf99647f29b724ae641">txtStatusField</a></td></tr>
 </table>
 <hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="ab902b9a99fcac28402274d4adb9fe82c"></a><!-- doxytag: member="org::client::LoginWindow::LoginWindow" ref="ab902b9a99fcac28402274d4adb9fe82c" args="(final ClientApp clientApp)" -->
@@ -156,12 +161,12 @@ Protected Member Functions</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="a16c100401211d87239cc2e654811b9a5"></a><!-- doxytag: member="org::client::LoginWindow::getTxtPassword" ref="a16c100401211d87239cc2e654811b9a5" args="()" -->
+<a class="anchor" id="ad1d212feca6c23f30653df6ec2585c5d"></a><!-- doxytag: member="org::client::LoginWindow::checkEntriesValid" ref="ad1d212feca6c23f30653df6ec2585c5d" args="()" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">JTextField <a class="el" href="classorg_1_1client_1_1_login_window.html#a16c100401211d87239cc2e654811b9a5">org.client.LoginWindow.getTxtPassword</a> </td>
+          <td class="memname">boolean <a class="el" href="classorg_1_1client_1_1_login_window.html#ad1d212feca6c23f30653df6ec2585c5d">org.client.LoginWindow.checkEntriesValid</a> </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td><code> [inline, protected]</code></td>
@@ -169,6 +174,26 @@ Protected Member Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>Do validation of the username and password fields to ensure they don't contain any invalid characters. If they do, set the status field appropriately. Note that this doesn't mean the login/registration was successful, just that the fields are valid and can be passed to the server.</p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>true if valid, false if not </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a176c270f4adb5398015f8bfdd38e94ff"></a><!-- doxytag: member="org::client::LoginWindow::getTxtPassword" ref="a176c270f4adb5398015f8bfdd38e94ff" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">JPasswordField <a class="el" href="classorg_1_1client_1_1_login_window.html#a176c270f4adb5398015f8bfdd38e94ff">org.client.LoginWindow.getTxtPassword</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [inline, protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Get a reference to the password field </p>
+<dl class="return"><dt><b>Returns:</b></dt><dd></dd></dl>
 
 </div>
 </div>
@@ -187,6 +212,20 @@ Protected Member Functions</h2></td></tr>
 <div class="memdoc">
 <p>Get a reference to the text field. </p>
 <dl class="return"><dt><b>Returns:</b></dt><dd></dd></dl>
+
+</div>
+</div>
+<hr/><h2>Member Data Documentation</h2>
+<a class="anchor" id="ad844fa1cb0bd1cf99647f29b724ae641"></a><!-- doxytag: member="org::client::LoginWindow::txtStatusField" ref="ad844fa1cb0bd1cf99647f29b724ae641" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">JTextArea <a class="el" href="classorg_1_1client_1_1_login_window.html#ad844fa1cb0bd1cf99647f29b724ae641">org.client.LoginWindow.txtStatusField</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
 
 </div>
 </div>

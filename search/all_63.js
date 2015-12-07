@@ -4,6 +4,7 @@ var searchData=
   ['chatwindow',['ChatWindow',['../classorg_1_1client_1_1_chat_window.html#a3cef74248715caf594b231ba3e290358',1,'org::client::ChatWindow']]],
   ['chatwindow',['ChatWindow',['../classorg_1_1client_1_1_chat_window.html',1,'org::client']]],
   ['chatwindow_2ejava',['ChatWindow.java',['../_chat_window_8java.html',1,'']]],
+  ['checkentriesvalid',['checkEntriesValid',['../classorg_1_1client_1_1_login_window.html#ad1d212feca6c23f30653df6ec2585c5d',1,'org::client::LoginWindow']]],
   ['clientapp',['ClientApp',['../classorg_1_1client_1_1_client_app.html',1,'org::client']]],
   ['clientapp_2ejava',['ClientApp.java',['../_client_app_8java.html',1,'']]],
   ['clientname',['clientname',['../classorg_1_1server_1_1_sup_server_1_1_sup_client_handler.html#a5e9bd4d2cf221a5b4843a2db9dae553a',1,'org::server::SupServer::SupClientHandler']]],
