@@ -16,7 +16,7 @@ import org.common.Utils;
  */
 public class ClientApp 
 {
-    private static final String serverAddress = "127.0.0.1";
+    private static final String serverAddress = "45.55.88.120";
     private static final int serverPort = 3000;
     private SSLSocket sock;
     private PrintWriter out;
